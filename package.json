@@ -1,0 +1,28 @@
+{
+  "name": "timeline-trace",
+  "version": "0.0.1",
+  "description": "Instruments JS code with tracking to create a timeline",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
+  "author": "Wylie Conlon <wylieconlon@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "css-loader": "^1.0.0",
+    "mocha": "^5.2.0",
+    "style-loader": "^0.22.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "@babel/generator": "^7.1.2",
+    "@babel/parser": "^7.1.2",
+    "@babel/template": "^7.1.2",
+    "@babel/traverse": "^7.0.0",
+    "@babel/types": "^7.1.2",
+    "codemirror": "^5.40.2"
+  }
+}
