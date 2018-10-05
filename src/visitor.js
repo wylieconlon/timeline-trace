@@ -41,19 +41,31 @@ function visitor(code) {
     },
 
     AssignmentExpression(path) {
-      if (!types.isIdentifier(path.node.left)) {
-        return;
-      }
+      let trackSelf;
 
-      const trackSelf = types.callExpression(
-        types.identifier('__tracker'),
-        [
-          types.stringLiteral('assignment'),
-          types.stringLiteral(path.node.left.name),
-          types.valueToNode(cloneLocation(path.node.left.loc)),
-          path.node.left
-        ]
-      );
+      if (!types.isIdentifier(path.node.left)) {
+        // Left side of expression might be a member operator or some other
+        // compositional expression
+        trackSelf = types.callExpression(
+          types.identifier('__tracker'),
+          [
+            types.stringLiteral('assignment'),
+            types.stringLiteral(path.get('left').toString()),
+            types.valueToNode(cloneLocation(path.node.left.loc)),
+            types.stringLiteral(path.get('right').toString()),
+          ]
+        );
+      } else {
+        trackSelf = types.callExpression(
+          types.identifier('__tracker'),
+          [
+            types.stringLiteral('assignment'),
+            types.stringLiteral(path.node.left.name),
+            types.valueToNode(cloneLocation(path.node.left.loc)),
+            path.node.left
+          ]
+        );
+      }
 
       path.parentPath.insertAfter(trackSelf);
     },
