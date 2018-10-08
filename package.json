@@ -4,7 +4,7 @@
   "description": "Instruments JS code with tracking to create a timeline",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "watch": "webpack --watch",
     "build": "webpack"
   },
@@ -12,7 +12,8 @@
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^1.0.0",
-    "mocha": "^5.2.0",
+    "jest": "^23.6.0",
+    "prettier": "^1.14.3",
     "style-loader": "^0.22.1",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.2"
