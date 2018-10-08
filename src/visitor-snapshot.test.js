@@ -1,4 +1,4 @@
-const visitor = require("./visitor.js");
+import visitor from "./visitor.js";
 
 describe("Generated source from inputs", function() {
   it("Adds a tracking call for var creation", function() {

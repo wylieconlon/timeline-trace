@@ -1,7 +1,7 @@
-const { parse } = require('@babel/parser');
-const traverse = require('@babel/traverse').default;
-const types = require('@babel/types');
-const generate = require('@babel/generator').default;
+import { parse } from '@babel/parser';
+import traverse from '@babel/traverse';
+import * as types from '@babel/types';
+import generate from '@babel/generator';
 
 function cloneLocation(loc) {
   return {
@@ -177,4 +177,4 @@ function visitor(code) {
   return generate(originalAst, code);
 }
 
-module.exports = visitor;
+export default visitor;

@@ -1,12 +1,11 @@
 import codemirror from 'codemirror';
-const visitor = require('./visitor');
+import visitor from './visitor';
 
+import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript.js';
 require('codemirror/lib/codemirror.css');
 require('codemirror/theme/monokai.css');
 require('./style.css');
-
-const CodeMirror = require('codemirror');
 
 let timeline = [];
 

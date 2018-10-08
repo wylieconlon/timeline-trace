@@ -1,4 +1,4 @@
-const inspect = require('object-inspect');
+import inspect from 'object-inspect';
 
 let _preloadTrackQueue = [];
 

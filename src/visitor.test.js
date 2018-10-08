@@ -1,4 +1,4 @@
-const visitor = require("./visitor.js");
+import visitor from "./visitor.js";
 
 describe("Structure of tracking calls", function() {
   let __tracker;
