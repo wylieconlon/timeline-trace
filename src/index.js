@@ -14,6 +14,9 @@ function addToTimeline(type, name, loc, ...args) {
   let variablesEl = document.querySelector('.actual-variables');
   let outputEl = document.createElement('div');
 
+  outputEl.classList.add('step-line');
+  outputEl.setAttribute('data-lines', JSON.stringify(loc));
+
   timeline.push({
     line: loc.start.line
   });
@@ -142,6 +145,34 @@ function finishInit(code, container) {
       generated.classList.remove('is-visible');
     } else {
       generated.classList.add('is-visible');
+    }
+  });
+
+  let marker = null;
+  variablesEl.addEventListener('mouseover', function(ev) {
+    if (marker) {
+      marker.clear();
+      marker = null;
+    }
+
+    if (ev.target.classList.contains('step-line')) {
+      const loc = JSON.parse(ev.target.getAttribute('data-lines'));
+      marker = mirror.markText({
+        line: loc.start.line - 1,
+        ch: loc.start.column,
+      }, {
+        line: loc.end.line - 1,
+        ch: loc.end.column,
+      }, {
+        className: 'is-highlighted',
+        clearOnEnter: true,
+      });
+    }
+  });
+  variablesEl.addEventListener('mouseout', function(ev) {
+    if (marker) {
+      marker.clear();
+      marker = null;
     }
   });
 }

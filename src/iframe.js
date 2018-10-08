@@ -1,3 +1,5 @@
+const inspect = require('object-inspect');
+
 let _preloadTrackQueue = [];
 
 window.__tracker = function() {
@@ -6,7 +8,7 @@ window.__tracker = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   function _addCallTracking(type, name, loc, ...args) {
-    const stringifiedArgs = args.map((arg) => '' + arg);
+    const stringifiedArgs = args.map(inspect);
     window.parent.postMessage({
       type: 'tracking',
       trackingBody: {

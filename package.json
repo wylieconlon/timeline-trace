@@ -24,6 +24,7 @@
     "@babel/template": "^7.1.2",
     "@babel/traverse": "^7.0.0",
     "@babel/types": "^7.1.2",
-    "codemirror": "^5.40.2"
+    "codemirror": "^5.40.2",
+    "object-inspect": "^1.6.0"
   }
 }

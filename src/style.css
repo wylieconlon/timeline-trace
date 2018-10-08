@@ -20,9 +20,8 @@ html, body {
   background-color: #404040;
 }
 
-.CodeMirror .expr-highlight {
+.CodeMirror .is-highlighted {
   background-color: #555555;
-  border: 1px solid #999999;
 }
 
 .paused { display: none }
