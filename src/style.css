@@ -59,20 +59,16 @@ button { font-size: 15px; }
 }
 
 .generated {
-  display: none;
   position: absolute;
   background: white;
   overflow: auto;
+  font-family: monospace;
 
   left: 0;
   right: 0;
   top: 50px;
   bottom: 0;
   z-index: 100;
-}
-
-.generated.is-visible {
-  display: block;
 }
 
 .output {

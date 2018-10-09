@@ -4,45 +4,8 @@
     <meta charset="utf-8" />
   </head>
   <body>
-    <div class="buttons">
-      <div class="resumed">
-        <button class="run">Run</button>
-        <button class="showSource">Show generated code</button>
-      </div>
-      <div class="shared">
-        <button class="share">Generate Unique URL</button>
-      </div>
-    </div>
+    <div class="react-root"></div>
 
-    <div class="editor-area">
-      <div class="row">
-        <div class="editor"></div>
-        <div class="timeline"></div>
-        <div class="output">
-          <h4>Output:</h4>
-          <div class="actual-output"></div>
-        </div>
-        <div class="variables">
-          <h4>Program run log:</h4>
-          <div class="actual-variables"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="generated"></div>
-  </div>
-
-  <div class="demo-debugger">
-var total = 0;
-
-for(var i=0; i<10; i++) {
-  if(i == 5) {
-    break;
-  }
-  total += i;
-}
-
-  </div>
     <script src="/dist/main.js"></script>
   </body>
 </html>

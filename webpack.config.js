@@ -2,7 +2,7 @@
   mode: 'development',
   entry: {
     main: './src/index.js',
-    iframe: './src/iframe.js'
+    iframe: './src/iframe-emitter.js'
   },
   output: {
     filename: '[name].js',

@@ -13,6 +13,7 @@
   "devDependencies": {
     "@babel/core": "^7.1.2",
     "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
@@ -31,6 +32,8 @@
     "@babel/traverse": "^7.0.0",
     "@babel/types": "^7.1.2",
     "codemirror": "^5.40.2",
-    "object-inspect": "^1.6.0"
+    "object-inspect": "^1.6.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   }
 }
