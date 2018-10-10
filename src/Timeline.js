@@ -1,46 +1,62 @@
 import React, { Component } from 'react';
 
+import isMatchingLocation from './matchingLocation';
+
 class Timeline extends Component {
   render() {
     const dots = this.makeDotTimeline();
-    return (<div className="timeline">{dots}</div>);
+    return <div className="timeline"
+      onMouseOut={this.props.onHoverEnd.bind(this)}
+    >
+      {dots}
+    </div>;
+  }
+
+  sendHoverEvents(index) {
+    if (typeof index !== undefined) {
+      this.props.onHover(index);
+    }
   }
 
   makeDotTimeline() {
-    const lines = this.props.loggedEvents.map((event) => {
-      return { line: event.loc.start.line };
-    });
-
     let maxLine = 0;
-    lines.forEach(({ line }) => {
-      if (line > maxLine) {
-        maxLine = line;
+    this.props.loggedEvents.forEach(({ loc }) => {
+      if (loc.start.line > maxLine) {
+        maxLine = loc.start.line;
       }
     });
 
-    let outputStr = '';
-    let column;
-    let row;
-    for (let i = 0; i < maxLine * lines.length; i++) {
-      column = i % lines.length;
-      row = Math.floor(i / lines.length);
-      if (i > 0 && column === 0) {
-        outputStr += '\n';
-      }
-      if (column === 0) {
-        if (row < 9) {
-          outputStr += ' ';
-        }
-        outputStr += (row + 1) + ' |';
-      }
-      if (lines[column].line - 1 === row) {
-        outputStr += ' • |';
-      } else {
-        outputStr += '   |';
-      }
-    }
+    const output = [];
+    const columns = [];
 
-    return outputStr;
+    const lineNumbers = [];
+    for (let i = 0; i < maxLine; i++) {
+      lineNumbers.push(<div className="timeline-row"
+        key={`line-${i}`}
+      >
+        {i+1}
+      </div>);
+    }
+    output.push(<div className="timeline-column" key="lineNumbers">{lineNumbers}</div>);
+
+    this.props.loggedEvents.forEach((event, index) => {
+      const rows = [];
+      for (let i = 0; i < maxLine; i++) {
+        let active = i === event.loc.start.line - 1;
+        let focused = isMatchingLocation(event.loc, this.props.focusedLocation);
+        rows.push(<div
+          className={`timeline-row ${active && 'is-active'} ${focused && 'is-focused'}`}
+          key={`step-${index}-row-${i}`}
+          onMouseOver={this.sendHoverEvents.bind(this, index)}
+        />);
+      }
+
+      output.push(<div className="timeline-column" key={`step-${index}`}>
+        {rows}
+      </div>);
+    });
+
+    return output;
   }
 }
 

@@ -16,34 +16,15 @@ html, body {
   background-color: #f0f0f0;
 }
 
-.CodeMirror .debug {
-  background-color: #404040;
-}
-
 .CodeMirror .is-highlighted {
   background-color: #555555;
 }
-
-.paused { display: none }
 
 .buttons {
   padding: 1em;
   border-bottom: 1px solid #d0d0d0;
 }
 button { font-size: 15px; }
-
-.breakpoints {
-  width: 20px;
-  height: 100%;
-}
-
-.breakpoint {
-  background-color: red;
-  width: 12px;
-  height: 12px;
-  margin-left: 5px;
-  border-radius: 10px;
-}
 
 .row {
   height: 90vh;
@@ -52,7 +33,7 @@ button { font-size: 15px; }
   grid-auto-flow: row;
 }
 
-.output, .variables, .generated {
+.output, .generated {
   padding: 1em;
   overflow: auto;
   box-sizing: border-box;
@@ -78,11 +59,6 @@ button { font-size: 15px; }
 .output iframe {
   width: 100%;
   border: 1px solid .ccc;
-}
-
-.variables {
-  font-family: monospace;
-  flex-basis: 100px;
 }
 
 .timeline {
@@ -120,13 +96,8 @@ h4 {
   margin: 0;
 }
 
-.variables ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.timeline {
+.timeline,
+.runlog {
   font-family: monospace;
 }
 
@@ -134,36 +105,34 @@ h4 {
   overflow: hidden;
 }
 
-.resumed, .paused {
-  float: left;
-}
-
 .shared {
   float: right;
-}
-
-.demo-debugger {
-  display: none;
 }
 
 .debugger {
   border: 1px solid #d0d0d0;
 }
 
-.debugger-error {
-  background-color: #ff5555;
-  font-family: sans-serif;
-  padding: .25em .5em;
-  line-height: 1.5em;
-  margin: 1em;
-  position: fixed;
-  top: 0;
-  right: 0;
-  display: none;
+.timeline {
+  display: flex;
 }
 
-.variableContainer {
-  padding: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
+.timeline-column {
+  width: 14px;
+  border-left: 1px solid #ddd;
+}
+
+.timeline-row {
+  height: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.runlog-item.is-focused,
+.timeline-row.is-focused {
+  background-color: #cfc;
+  border-color: #aca;
+}
+
+.timeline-row.is-active {
+  background-color: #ccf;
 }

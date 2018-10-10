@@ -88,8 +88,14 @@ class App extends Component {
               <Editor code={this.state.code}
                 focusedLocation={this.state.hoveredCodePosition}
                 onCodeChange={this.onCodeChange.bind(this)}
+                onHover={this.handleHoverAtIndex.bind(this)}
+                onHoverEnd={this.handleHoverEnd.bind(this)}
               />
-              <Timeline loggedEvents={this.state.loggedEvents} />
+              <Timeline loggedEvents={this.state.loggedEvents}
+                focusedLocation={this.state.hoveredCodePosition}
+                onHover={this.handleHoverAtIndex.bind(this)}
+                onHoverEnd={this.handleHoverEnd.bind(this)}
+              />
               <div className="output">
                 <h4>Output:</h4>
                 <div className="actual-output"></div>
@@ -97,12 +103,11 @@ class App extends Component {
               </div>
               <div className="variables">
                 <h4>Program run log:</h4>
-                <div className="actual-variables">
-                  <RunLog loggedEvents={this.state.loggedEvents}
-                    onHover={this.handleHoverAtIndex.bind(this)}
-                    onHoverEnd={this.handleHoverEnd.bind(this)}
-                  />
-                </div>
+                <RunLog loggedEvents={this.state.loggedEvents}
+                  focusedLocation={this.state.hoveredCodePosition}
+                  onHover={this.handleHoverAtIndex.bind(this)}
+                  onHoverEnd={this.handleHoverEnd.bind(this)}
+                />
               </div>
             </div>
           </div>

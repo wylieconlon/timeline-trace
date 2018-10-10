@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 
+import isMatchingLocation from './matchingLocation';
+
 class RunLog extends Component {
   render() {
     return (
       <div className="runlog" onMouseOut={this.handleMouseOut.bind(this)}>
-        {this.props.loggedEvents.map(this.getTextForEvent).map((text, index) =>
-          <div key={index} onMouseOver={this.handleMouseOver.bind(this, index)}>
+        {this.props.loggedEvents.map((event, index) => {
+          const text = this.getTextForEvent(event, index);
+          const isFocused = isMatchingLocation(event.loc, this.props.focusedLocation);
+          return (<div className={`runlog-item ${isFocused && 'is-focused'}`}
+            key={index} onMouseOver={this.handleMouseOver.bind(this, index)}
+          >
             {text}
-          </div>
-        )}
+          </div>);
+        })}
       </div>
     );
   }
