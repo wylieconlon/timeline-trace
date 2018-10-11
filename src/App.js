@@ -107,8 +107,7 @@ class App extends Component {
               />
               <div className="output">
                 <h4>Output:</h4>
-                <div className="actual-output"></div>
-                <Iframe code={this.state.generatedCode} />
+                <Iframe className="iframe" code={this.state.generatedCode} />
               </div>
               <div className="variables">
                 <h4>Program run log:</h4>
@@ -129,16 +128,6 @@ class App extends Component {
         </div>
       </div>
     );
-  }
-
-  onCodeChange(newCode) {
-    const generated = visitor(newCode).code;
-
-    this.setState({
-      code: newCode,
-      generatedCode: generated,
-      loggedEvents: [],
-    });
   }
 
   toggleShowingSource() {
@@ -167,11 +156,24 @@ class App extends Component {
   handleSampleChange(ev) {
     const newSampleIndex = ev.target.value;
     const newCode = samples[newSampleIndex];
-    const generated = visitor(newCode).code;
 
     this.setState({
-      selectedSampleIndex: newSampleIndex,
-      code: samples[newSampleIndex],
+      selectedSampleIndex: newSampleIndex
+    });
+
+    this.onCodeChange(newCode);
+  }
+
+  onCodeChange(newCode) {
+    let generated = '';
+    try {
+      generated = visitor(newCode).code;
+    } catch (e) {
+      // Show an error to the user?
+    }
+
+    this.setState({
+      code: newCode,
       generatedCode: generated,
       loggedEvents: [],
     });

@@ -4,6 +4,8 @@ import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 
+import matchingLocation from './matchingLocation';
+
 class Editor extends Component {
   constructor(props) {
     super(props);
@@ -35,45 +37,51 @@ class Editor extends Component {
     });
   }
 
+  _createMarker(loc) {
+    const focusedStart = {
+      line: loc.start.line - 1,
+      ch: loc.start.column
+    };
+    const focusedEnd = {
+      line: loc.end.line - 1,
+      ch: loc.end.column
+    };
+    console.log('creating marker on line', loc.start.line);
+
+    const marker = this._editor.markText(focusedStart, focusedEnd, {
+      className: 'is-highlighted',
+      clearOnEnter: true,
+    });
+
+    return marker;
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.code !== prevProps.code) {
       this._editor.setValue(this.props.code);
     }
 
-    if (this.props.focusedLocation && this.props.focusedLocation !== prevProps.focusedLocation) {
-      const loc = this.props.focusedLocation;
-      const focusedStart = {
-        line: loc.start.line - 1,
-        ch: loc.start.column
-      };
-      const focusedEnd = {
-        line: loc.end.line - 1,
-        ch: loc.end.column
-      };
+    if (this.props.focusedLocation) {
+      const newLocation = this.props.focusedLocation;
 
-      const previousMarker = this.state.marker;
-
-      let createNewMarker = true;
+      const prevStateMarker = this.state.marker;
       if (
-        prevProps.focusedLocation &&
-        this.props.focusedLocation !== prevProps.focusedLocation
+        !prevProps.focusedLocation ||
+        !matchingLocation(newLocation, prevProps.focusedLocation)
       ) {
-        this.state.marker.clear();
-      } else {
-        createNewMarker = false;
-      }
-      if (createNewMarker) {
-        const marker = this._editor.markText(focusedStart, focusedEnd, {
-          className: 'is-highlighted',
-          clearOnEnter: true,
-        });
-
+        if (prevStateMarker && prevStateMarker.find()) {
+          prevStateMarker.clear();
+        }
+        const marker = this._createMarker(newLocation);
         this.setState({ marker });
       }
-    } else if (this.state.marker) {
+    }
 
-      this.state.marker.clear();
-      this.setState({ marker: null });
+    if (prevProps.focusedLocation && !this.props.focusedLocation) {
+      if (this.state.marker && this.state.marker.find()) {
+        this.state.marker.clear();
+        this.setState({ marker: null });
+      }
     }
   }
 }
