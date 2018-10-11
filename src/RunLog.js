@@ -4,8 +4,26 @@ import isMatchingLocation from './matchingLocation';
 
 class RunLog extends Component {
   render() {
+    const changes = this.getChangesOverTime();
     return (
       <div className="runlog" onMouseOut={this.handleMouseOut.bind(this)}>
+        {changes.map(({ name, values }) => {
+          return (<div className="runlog-variable" key={`changes-${name}`}>
+            <div className="runlog-variableName">{name}</div>
+            <ul>
+              {values.map(({ step, value, loc }) => {
+                return (<li
+                  className={`${isMatchingLocation(loc, this.props.focusedLocation) ? 'is-focused' : ''}`}
+                  key={`step-${step}`}
+                  onMouseOver={this.handleMouseOver.bind(this, step - 1)}
+                >
+                  Step {step}: {value}
+                </li>);
+              })}
+            </ul>
+          </div>);
+        })}
+
         {this.props.loggedEvents.map((event, index) => {
           const text = this.getTextForEvent(event, index);
           const isFocused = isMatchingLocation(event.loc, this.props.focusedLocation);
@@ -31,6 +49,34 @@ class RunLog extends Component {
     } else {
       return `Step ${index + 1}`;
     }
+  }
+
+  getChangesOverTime() {
+    const changes = {};
+    const keys = [];
+    this.props.loggedEvents.forEach(({ type, name, loc, args }, index) => {
+      if (type !== 'assignment') {
+        return;
+      }
+
+      if (!changes[name]) {
+        changes[name] = [];
+        keys.push(name);
+      }
+
+      changes[name].push({
+        value: args[0],
+        step: index + 1,
+        loc
+      });
+    });
+
+    return keys.map((key) => {
+      return {
+        name: key,
+        values: changes[key]
+      };
+    });
   }
 
   handleMouseOver(index) {

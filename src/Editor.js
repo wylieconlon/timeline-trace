@@ -35,9 +35,12 @@ class Editor extends Component {
     });
   }
 
-  // Potentially updating because highlight position has changed
-  componentDidUpdate() {
-    if (this.props.focusedLocation) {
+  componentDidUpdate(prevProps) {
+    if (this.props.code !== prevProps.code) {
+      this._editor.setValue(this.props.code);
+    }
+
+    if (this.props.focusedLocation && this.props.focusedLocation !== prevProps.focusedLocation) {
       const loc = this.props.focusedLocation;
       const focusedStart = {
         line: loc.start.line - 1,
@@ -50,25 +53,15 @@ class Editor extends Component {
 
       const previousMarker = this.state.marker;
 
-      let createNewMarker;
-      if (previousMarker) {
-        const previousLoc = previousMarker.find();
-        const previousStart = previousLoc.from;
-        const previousEnd = previousLoc.to;
-
-        if (
-          previousStart.line !== focusedStart.line ||
-          previousStart.ch !== focusedStart.ch ||
-          previousEnd.line !== focusedEnd.line ||
-          previousEnd.ch !== focusedEnd.ch
-        ) {
-          this.state.marker.clear();
-          createNewMarker = true;
-        }
+      let createNewMarker = true;
+      if (
+        prevProps.focusedLocation &&
+        this.props.focusedLocation !== prevProps.focusedLocation
+      ) {
+        this.state.marker.clear();
       } else {
-        createNewMarker = true;
+        createNewMarker = false;
       }
-
       if (createNewMarker) {
         const marker = this._editor.markText(focusedStart, focusedEnd, {
           className: 'is-highlighted',

@@ -37,7 +37,7 @@ class Timeline extends Component {
         {i+1}
       </div>);
     }
-    output.push(<div className="timeline-column" key="lineNumbers">{lineNumbers}</div>);
+    output.push(<div className="timeline-lineNumbers" key="lineNumbers">{lineNumbers}</div>);
 
     this.props.loggedEvents.forEach((event, index) => {
       const rows = [];

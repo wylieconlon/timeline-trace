@@ -7,23 +7,23 @@ import RunLog from './RunLog';
 
 import visitor from './visitor';
 
-const codeSample = `
-var total = 0;
+import clickHandlingSample from './samples/clickhandling';
+import loopSample from './samples/loop';
+import variableAssignSample from './samples/variable-assign';
 
-for (var i=0; i<10; i++) {
-  if(i == 5) {
-    break;
-  }
-  total += i;
-}
-`;
+const samples = [
+  loopSample,
+  clickHandlingSample,
+  variableAssignSample,
+];
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      code: codeSample,
+      code: loopSample,
+      selectedSampleIndex: 0,
       loggedEvents: [],
       isShowingSource: false,
       generatedCode: '',
@@ -78,6 +78,15 @@ class App extends Component {
                 Show generated code
               </button>
             </div>
+
+            <select value={this.state.selectedSampleIndex}
+              onChange={this.handleSampleChange.bind(this)}
+            >
+              {samples.map((sample, index) => {
+                return <option value={index} key={index}>Sample {index + 1}</option>;
+              })}
+            </select>
+
             <div className="shared">
               <button className="share">Generate Unique URL</button>
             </div>
@@ -86,8 +95,8 @@ class App extends Component {
           <div className="editor-area">
             <div className="row">
               <Editor code={this.state.code}
-                focusedLocation={this.state.hoveredCodePosition}
                 onCodeChange={this.onCodeChange.bind(this)}
+                focusedLocation={this.state.hoveredCodePosition}
                 onHover={this.handleHoverAtIndex.bind(this)}
                 onHoverEnd={this.handleHoverEnd.bind(this)}
               />
@@ -152,6 +161,19 @@ class App extends Component {
         start: Object.assign({}, loc.start),
         end: Object.assign({}, loc.end),
       }
+    });
+  }
+
+  handleSampleChange(ev) {
+    const newSampleIndex = ev.target.value;
+    const newCode = samples[newSampleIndex];
+    const generated = visitor(newCode).code;
+
+    this.setState({
+      selectedSampleIndex: newSampleIndex,
+      code: samples[newSampleIndex],
+      generatedCode: generated,
+      loggedEvents: [],
     });
   }
 }

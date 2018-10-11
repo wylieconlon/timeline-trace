@@ -122,13 +122,20 @@ h4 {
   border-left: 1px solid #ddd;
 }
 
+.timeline-lineNumbers {
+  width: 20px;
+  text-align: right;
+  padding-right: 2px;
+}
+
 .timeline-row {
   height: 15px;
   border-top: 1px solid #ddd;
 }
 
 .runlog-item.is-focused,
-.timeline-row.is-focused {
+.timeline-row.is-focused,
+li.is-focused {
   background-color: #cfc;
   border-color: #aca;
 }
