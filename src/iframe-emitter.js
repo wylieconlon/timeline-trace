@@ -9,12 +9,25 @@ window.__tracker = function() {
 document.addEventListener('DOMContentLoaded', function() {
   function _addCallTracking(type, name, loc, ...args) {
     const stringifiedArgs = args.map(inspect);
+
+    const locList = loc.split(',').map((l) => parseInt(l));
+    const locObject = {
+      start: {
+        line: locList[0],
+        column: locList[1],
+      },
+      end: {
+        line: locList[2],
+        column: locList[3],
+      }
+    };
+
     window.parent.postMessage({
       type: 'tracking',
       trackingBody: {
         type,
         name,
-        loc,
+        loc: locObject,
         args: stringifiedArgs
       }
     }, '*');

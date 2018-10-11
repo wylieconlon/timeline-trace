@@ -7,16 +7,7 @@ describe("Generated source from inputs", function() {
 Object {
   "code": "var x;
 
-__tracker(\\"assignment\\", \\"x\\", {
-  start: {
-    line: 1,
-    column: 4
-  },
-  end: {
-    line: 1,
-    column: 5
-  }
-}, x);",
+__tracker(\\"assignment\\", \\"x\\", \\"1,4,1,5\\", x);",
   "map": null,
   "rawMappings": null,
 }
@@ -29,16 +20,7 @@ __tracker(\\"assignment\\", \\"x\\", {
 Object {
   "code": "x = 5;
 
-__tracker(\\"assignment\\", \\"x\\", {
-  start: {
-    line: 1,
-    column: 0
-  },
-  end: {
-    line: 1,
-    column: 1
-  }
-}, x)",
+__tracker(\\"assignment\\", \\"x\\", \\"1,0,1,1\\", x)",
   "map": null,
   "rawMappings": null,
 }
@@ -51,16 +33,7 @@ __tracker(\\"assignment\\", \\"x\\", {
 Object {
   "code": "document.body.innerText = 'hello';
 
-__tracker(\\"assignment\\", \\"document.body.innerText\\", {
-  start: {
-    line: 1,
-    column: 0
-  },
-  end: {
-    line: 1,
-    column: 23
-  }
-}, \\"'hello'\\")",
+__tracker(\\"assignment\\", \\"document.body.innerText\\", \\"1,0,1,23\\", \\"'hello'\\")",
   "map": null,
   "rawMappings": null,
 }
@@ -78,16 +51,7 @@ __tracker(\\"assignment\\", \\"document.body.innerText\\", {
 Object {
   "code": "let _if = x === y || y > z;
 
-__tracker(\\"condition\\", \\"x === y || y > z\\", {
-  start: {
-    line: 2,
-    column: 10
-  },
-  end: {
-    line: 2,
-    column: 26
-  }
-}, _if);
+__tracker(\\"condition\\", \\"x === y || y > z\\", \\"2,10,2,26\\", _if);
 
 if (_if) {
   doFirst();
@@ -105,16 +69,7 @@ if (_if) {
     expect(result).toMatchInlineSnapshot(`
 Object {
   "code": "function myFunction(a, b, c) {
-  __tracker(\\"fncall\\", \\"myFunction\\", {
-    start: {
-      line: 1,
-      column: 0
-    },
-    end: {
-      line: 1,
-      column: 31
-    }
-  }, a, b, c)
+  __tracker(\\"fncall\\", \\"myFunction\\", \\"1,0,1,31\\", a, b, c)
 }",
   "map": null,
   "rawMappings": null,
@@ -127,17 +82,32 @@ Object {
     expect(result).toMatchInlineSnapshot(`
 Object {
   "code": "getResult(function (a, b) {
-  __tracker(\\"fncall\\", \\"Anonymous Function\\", {
-    start: {
-      line: 1,
-      column: 10
-    },
-    end: {
-      line: 1,
-      column: 27
-    }
-  }, a, b)
+  __tracker(\\"fncall\\", \\"Anonymous Function\\", \\"1,10,1,27\\", a, b)
 });",
+  "map": null,
+  "rawMappings": null,
+}
+`);
+  });
+
+  it("Handles multiple if else branches", function() {
+    const result = visitor(`
+if (a === null) {
+} else if (b === null) {
+} else {
+}
+    `);
+    expect(result).toMatchInlineSnapshot(`
+Object {
+  "code": "let _if = a === null;
+
+__tracker(\\"condition\\", \\"a === null\\", \\"2,4,2,14\\", _if);
+
+let _if2 = b === null;
+
+__tracker(\\"condition\\", \\"b === null\\", \\"3,11,3,21\\", _if2);
+
+if (_if) {} else if (_if2) {} else {}",
   "map": null,
   "rawMappings": null,
 }

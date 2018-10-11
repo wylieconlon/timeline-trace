@@ -15,7 +15,26 @@ describe("Structure of tracking calls", function() {
     const calls = __tracker.mock.calls;
 
     expect(calls.length).toEqual(1);
-    expect(calls[0]).toEqual(expect.arrayContaining(['assignment', 'x', 5]));
+    expect(calls[0]).toEqual(expect.arrayContaining(['assignment', 'x', '1,4,1,5', 5]));
+  });
+
+  it("Tracks multiple branches of an if else", function() {
+    const code = visitor(`
+var x = 5;
+if (x === 1) {
+} else if (x === 2) {
+} else if (x === 5) {
+} else {}
+    `).code;
+
+    eval(code);
+
+    const calls = __tracker.mock.calls;
+
+    expect(calls.length).toEqual(4);
+    expect(calls).toContainEqual(['condition', 'x === 1', '3,4,3,11', false]);
+    expect(calls).toContainEqual(['condition', 'x === 2', '4,11,4,18', false]);
+    expect(calls).toContainEqual(['condition', 'x === 5', '5,11,5,18', true]);
   });
 });
 

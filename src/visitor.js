@@ -3,17 +3,15 @@ import traverse from '@babel/traverse';
 import * as types from '@babel/types';
 import generate from '@babel/generator';
 
-function cloneLocation(loc) {
-  return {
-    start: {
-      line: loc && loc.start.line,
-      column: loc && loc.start.column
-    },
-    end: {
-      line: loc && loc.end.line,
-      column: loc && loc.end.column
-    }
-  };
+function shrinkLocation(loc) {
+  const locations = [
+    loc && loc.start.line,
+    loc && loc.start.column,
+    loc && loc.end.line,
+    loc && loc.end.column
+  ];
+
+  return locations.join(',');
 }
 
 function visitor(code) {
@@ -32,7 +30,7 @@ function visitor(code) {
           [
             types.stringLiteral('fncall'),
             types.stringLiteral(functionName),
-            types.valueToNode(cloneLocation(path.node.loc))
+            types.stringLiteral(shrinkLocation(path.node.loc)),
           ].concat(path.node.params)
         );
 
@@ -51,7 +49,7 @@ function visitor(code) {
           [
             types.stringLiteral('assignment'),
             types.stringLiteral(path.get('left').toString()),
-            types.valueToNode(cloneLocation(path.node.left.loc)),
+            types.stringLiteral(shrinkLocation(path.node.left.loc)),
             types.stringLiteral(path.get('right').toString()),
           ]
         );
@@ -61,7 +59,7 @@ function visitor(code) {
           [
             types.stringLiteral('assignment'),
             types.stringLiteral(path.node.left.name),
-            types.valueToNode(cloneLocation(path.node.left.loc)),
+            types.stringLiteral(shrinkLocation(path.node.left.loc)),
             path.node.left
           ]
         );
@@ -82,7 +80,7 @@ function visitor(code) {
             [
               types.stringLiteral('assignment'),
               types.stringLiteral(id.name),
-              types.valueToNode(cloneLocation(id.loc)),
+              types.stringLiteral(shrinkLocation(id.loc)),
               id
             ]
           ));
@@ -110,7 +108,7 @@ function visitor(code) {
           [
             types.stringLiteral('assignment'),
             types.stringLiteral(id.name),
-            types.valueToNode(cloneLocation(id.loc)),
+            types.stringLiteral(shrinkLocation(id.loc)),
             id
           ]
         ));
@@ -141,13 +139,14 @@ function visitor(code) {
         [
           types.stringLiteral('condition'),
           types.stringLiteral(path.get('test').toString()),
-          types.valueToNode(cloneLocation(path.node.test.loc)),
+          types.stringLiteral(shrinkLocation(path.node.test.loc)),
           storeTestResult
         ]
       ));
 
-      path.insertBefore(assignTestResult);
-      path.insertBefore(trackSelf);
+      const statementParent = path.getStatementParent();
+      statementParent.insertBefore(assignTestResult);
+      statementParent.insertBefore(trackSelf);
       path.get('test').replaceWith(storeTestResult);
     },
 
@@ -164,7 +163,7 @@ function visitor(code) {
         [
           types.stringLiteral('block'),
           types.stringLiteral(uid.name),
-          types.valueToNode(cloneLocation(path.node.loc))
+          types.stringLiteral(shrinkLocation(path.node.loc))
         ]
       );
 
