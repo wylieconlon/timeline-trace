@@ -56,7 +56,12 @@ class Editor extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.code !== prevProps.code) {
+    if (
+      this.props.code !== prevProps.code &&
+      this._editor.getValue() !== this.props.code
+    ) {
+      // Only update the editor if it's a change from an external source
+      // i.e. switching example
       this._editor.setValue(this.props.code);
     }
 
