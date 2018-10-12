@@ -30,7 +30,7 @@ button { font-size: 15px; }
   height: 90vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: 40% 60%;
   grid-auto-flow: row;
 }
 
@@ -51,20 +51,13 @@ button { font-size: 15px; }
 }
 
 .output {
-  flex-basis: 200px;
+  display: flex;
+  flex-direction: column;
 }
 
 .output iframe {
-  width: 100%;
-  border: 1px solid .ccc;
-}
-
-.timeline {
+  border: 1px solid #ccc;
   flex-grow: 1;
-  border: 1px solid #d0d0d0;
-  flex-basis: 100px;
-  padding: 4px 0;
-  overflow: auto;
 }
 
 .output, .generated {
@@ -83,15 +76,7 @@ button { font-size: 15px; }
 }
 
 .editor {
-  flex: 0;
-  flex-basis: 300px;
-  flex-grow: 0;
-  width: 300px;
   overflow: auto;
-}
-
-.editor-wrapper {
-  width: 100%;
 }
 
 h4 {
@@ -117,6 +102,9 @@ h4 {
 
 .timeline {
   display: flex;
+  border: 1px solid #d0d0d0;
+  padding: 4px 0;
+  overflow: auto;
 }
 
 .timeline-column {
@@ -146,4 +134,24 @@ li.is-focused {
 
 .timeline-row.is-active {
   background-color: #ccf;
+}
+
+.variables {
+  grid-column-start: span 3;
+  overflow: auto;
+}
+
+.runlog {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.runlog-lines {
+  overflow: auto;
+}
+
+.runlog-variableName {
+  font-weight: 600;
+  border: 1px solid #ccc;
 }

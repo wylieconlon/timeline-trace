@@ -19,12 +19,7 @@ class Timeline extends Component {
   }
 
   makeDotTimeline() {
-    let maxLine = 0;
-    this.props.loggedEvents.forEach(({ loc }) => {
-      if (loc.start.line > maxLine) {
-        maxLine = loc.start.line;
-      }
-    });
+    let maxLine = this.props.code.split('\n').length;
 
     const output = [];
     const columns = [];

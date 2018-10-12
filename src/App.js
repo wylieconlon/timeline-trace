@@ -104,6 +104,7 @@ class App extends Component {
                 focusedLocation={this.state.hoveredCodePosition}
                 onHover={this.handleHoverAtIndex.bind(this)}
                 onHoverEnd={this.handleHoverEnd.bind(this)}
+                code={this.state.code}
               />
               <div className="output">
                 <h4>Output:</h4>

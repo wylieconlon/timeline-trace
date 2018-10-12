@@ -46,7 +46,6 @@ class Editor extends Component {
       line: loc.end.line - 1,
       ch: loc.end.column
     };
-    console.log('creating marker on line', loc.start.line);
 
     const marker = this._editor.markText(focusedStart, focusedEnd, {
       className: 'is-highlighted',
