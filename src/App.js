@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import Timeline from './timeline';
-import Editor from './editor';
+import Timeline from './Timeline';
+import Editor from './Editor';
 import Iframe from './Iframe-component';
 import RunLog from './RunLog';
 
