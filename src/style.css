@@ -20,6 +20,13 @@ html, body {
   background-color: #555555;
 }
 
+.CodeMirror .bookmark {
+  background-color: #00f;
+  border-radius: 2px;
+  margin-left: 5px;
+  padding: 0 5px;
+}
+
 .buttons {
   padding: 1em;
   border-bottom: 1px solid #d0d0d0;
@@ -108,7 +115,7 @@ h4 {
 }
 
 .timeline-column {
-  width: 14px;
+  width: 10px;
   border-left: 1px solid #ddd;
   flex-shrink: 0;
 }

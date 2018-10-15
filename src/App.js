@@ -83,7 +83,7 @@ class App extends Component {
               onChange={this.handleSampleChange.bind(this)}
             >
               {samples.map((sample, index) => {
-                return <option value={index} key={index}>Sample {index + 1}</option>;
+                return <option value={index} key={`sample-${index}`}>Sample {index + 1}</option>;
               })}
             </select>
 
@@ -172,6 +172,7 @@ class App extends Component {
       generated = visitor(newCode).code;
     } catch (e) {
       // Show an error to the user?
+      console.error(e);
     }
 
     this.setState({

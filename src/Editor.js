@@ -3,8 +3,10 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
+import debounce from 'lodash-es/debounce';
 
 import matchingLocation from './matchingLocation';
+import getChangesOverTime from './getChangesOverTime';
 
 class Editor extends Component {
   constructor(props) {
@@ -14,7 +16,8 @@ class Editor extends Component {
     this.editorContainer = React.createRef();
 
     this.state = {
-      marker: null
+      marker: null,
+      bookmarks: [],
     };
   }
 
@@ -32,9 +35,9 @@ class Editor extends Component {
 
     this.props.onCodeChange(this._editor.getValue());
 
-    this._editor.on('change', () => {
+    this._editor.on('change', debounce(() => {
       this.props.onCodeChange(this._editor.getValue());
-    });
+    }), 500);
   }
 
   _createMarker(loc) {
@@ -56,6 +59,7 @@ class Editor extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // Order matters for this one
     if (
       this.props.code !== prevProps.code &&
       this._editor.getValue() !== this.props.code
@@ -63,6 +67,14 @@ class Editor extends Component {
       // Only update the editor if it's a change from an external source
       // i.e. switching example
       this._editor.setValue(this.props.code);
+    } else if (this.props.code !== prevProps.code) {
+      this.state.bookmarks.forEach((bookmark) => {
+        bookmark.clear();
+      });
+    }
+
+    if (this.props.loggedEvents !== prevProps.loggedEvents) {
+      this._updateBookmarks();
     }
 
     if (this.props.focusedLocation) {
@@ -87,6 +99,35 @@ class Editor extends Component {
         this.setState({ marker: null });
       }
     }
+  }
+
+
+  _updateBookmarks() {
+    const changesOverTime = getChangesOverTime(this.props.loggedEvents);
+
+    if (this.state.bookmarks.length) {
+      this.state.bookmarks.forEach((bookmark) => bookmark.clear());
+    }
+
+    let bookmarks = [];
+    changesOverTime.forEach(({ values }) => {
+      const originalLoc = values[0].loc;
+      const lastValue = values[values.length - 1];
+
+      const widget = document.createElement('span');
+      widget.className = 'bookmark';
+      widget.innerText = lastValue.value;
+
+      bookmarks.push(this._editor.setBookmark({
+        line: originalLoc.end.line - 1,
+        ch: originalLoc.end.column
+      }, {
+        widget,
+        insertLeft: true
+      }));
+    });
+
+    this.setState({ bookmarks });
   }
 }
 
