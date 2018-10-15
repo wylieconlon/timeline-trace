@@ -24,7 +24,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      code: loopSample,
+      code: fizzbuzz,
       selectedSampleIndex: 0,
       loggedEvents: [],
       isShowingSource: false,
