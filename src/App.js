@@ -99,6 +99,7 @@ class App extends Component {
                 focusedLocation={this.state.hoveredCodePosition}
                 onHover={this.handleHoverAtIndex.bind(this)}
                 onHoverEnd={this.handleHoverEnd.bind(this)}
+                loggedEvents={this.state.loggedEvents}
               />
               <Timeline loggedEvents={this.state.loggedEvents}
                 focusedLocation={this.state.hoveredCodePosition}

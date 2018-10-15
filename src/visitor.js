@@ -144,6 +144,20 @@ function visitor(code) {
         ]
       ));
 
+      const alternate = path.node.alternate;
+      if (alternate && !types.isIfStatement(alternate)) {
+        const trackAlternate = types.expressionStatement(types.callExpression(
+          types.identifier('__tracker'),
+          [
+            types.stringLiteral('condition'),
+            types.stringLiteral('else condition'),
+            types.stringLiteral(shrinkLocation(alternate.loc)),
+          ]
+        ));
+
+        path.get('alternate').unshiftContainer('body', trackAlternate);
+      }
+
       const statementParent = path.getStatementParent();
       statementParent.insertBefore(assignTestResult);
       statementParent.insertBefore(trackSelf);

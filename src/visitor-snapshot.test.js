@@ -56,6 +56,8 @@ __tracker(\\"condition\\", \\"x === y || y > z\\", \\"2,10,2,26\\", _if);
 if (_if) {
   doFirst();
 } else {
+  __tracker(\\"condition\\", \\"else condition\\", \\"4,13,6,7\\");
+
   doSecond();
 }",
   "map": null,
@@ -107,7 +109,9 @@ let _if2 = b === null;
 
 __tracker(\\"condition\\", \\"b === null\\", \\"3,11,3,21\\", _if2);
 
-if (_if) {} else if (_if2) {} else {}",
+if (_if) {} else if (_if2) {} else {
+  __tracker(\\"condition\\", \\"else condition\\", \\"4,7,5,1\\");
+}",
   "map": null,
   "rawMappings": null,
 }

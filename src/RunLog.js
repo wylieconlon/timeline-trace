@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import isMatchingLocation from './matchingLocation';
+import getChangesOverTime from './getChangesOverTime';
 
 class RunLog extends Component {
   render() {
-    const changes = this.getChangesOverTime();
+    const changes = getChangesOverTime(this.props.loggedEvents);
     return (
       <div className="runlog" onMouseOut={this.handleMouseOut.bind(this)}>
         <div className="runlog-variables">
@@ -38,7 +39,7 @@ class RunLog extends Component {
               this.props.focusedLocation
             );
             return (<div className={`runlog-item ${isFocused && 'is-focused'}`}
-              key={index} onMouseOver={this.handleMouseOver.bind(this, index)}
+              key={`runlog-${index}`} onMouseOver={this.handleMouseOver.bind(this, index)}
             >
               {text}
             </div>);
@@ -55,39 +56,13 @@ class RunLog extends Component {
       return `Step ${index + 1}: Call ${name} on line ${loc.start.line} with arguments: ${args.join(', ')}`;
     } else if (type === 'block') {
       return `Step ${index + 1}: Run branch on line ${loc.start.line}`;
+    } else if (type === 'condition' && name === 'else condition') {
+      return `Step ${index + 1}: No other conditions met, else branch on line ${loc.start.line} was run`;
     } else if (type === 'condition') {
       return `Step ${index + 1}: Condition ${name} on line ${loc.start.line} had result: ${args[0]}`;
     } else {
       return `Step ${index + 1}`;
     }
-  }
-
-  getChangesOverTime() {
-    const changes = {};
-    const keys = [];
-    this.props.loggedEvents.forEach(({ type, name, loc, args }, index) => {
-      if (type !== 'assignment') {
-        return;
-      }
-
-      if (!changes[name]) {
-        changes[name] = [];
-        keys.push(name);
-      }
-
-      changes[name].push({
-        value: args[0],
-        step: index + 1,
-        loc
-      });
-    });
-
-    return keys.map((key) => {
-      return {
-        name: key,
-        values: changes[key]
-      };
-    });
   }
 
   handleMouseOver(index) {
