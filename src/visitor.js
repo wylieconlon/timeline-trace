@@ -50,6 +50,7 @@ function visitor(code) {
             types.stringLiteral('assignment'),
             types.stringLiteral(path.get('left').toString()),
             types.stringLiteral(shrinkLocation(path.node.left.loc)),
+            // TODO: Assign this value to a temporary variable to track it
             types.stringLiteral(path.get('right').toString()),
           ]
         );

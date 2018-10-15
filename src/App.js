@@ -8,13 +8,15 @@ import RunLog from './RunLog';
 import visitor from './visitor';
 
 import clickHandlingSample from './samples/clickhandling';
-import loopSample from './samples/loop';
-import variableAssignSample from './samples/variable-assign';
+import variableAssignSample from './samples/variableAssign';
+import nameGame from './samples/nameGame';
+import fizzbuzz from './samples/fizzbuzz';
 
 const samples = [
-  loopSample,
+  fizzbuzz,
   clickHandlingSample,
   variableAssignSample,
+  nameGame,
 ];
 
 class App extends Component {
