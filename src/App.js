@@ -34,14 +34,15 @@ class App extends Component {
   }
 
   addToTimeline(type, name, loc, ...args) {
-    const previousEvents = this.state.loggedEvents;
-    this.setState({
-      loggedEvents: previousEvents.concat({
-        type,
-        name,
-        loc,
-        args
-      })
+    this.setState((state) => {
+      return {
+        loggedEvents: state.loggedEvents.concat({
+          type,
+          name,
+          loc,
+          args
+        })
+      };
     });
   }
 

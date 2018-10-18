@@ -108,39 +108,49 @@ h4 {
 }
 
 .timeline {
-  display: flex;
+  position: relative;
   border: 1px solid #d0d0d0;
   padding: 4px 0;
   overflow: auto;
 }
 
-.timeline-column {
-  width: 10px;
-  border-left: 1px solid #ddd;
-  flex-shrink: 0;
+.timeline-scrollContainer {
+  position: relative;
 }
 
-.timeline-lineNumbers {
+.timeline-eventNumbers {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+.timeline-eventNumber {
+  position: absolute;
   width: 20px;
-  text-align: right;
-  padding-right: 2px;
 }
 
-.timeline-row {
+
+.timeline-event {
+  position: absolute;
   height: 15px;
-  flex-shrink: 0;
-  border-top: 1px solid #ddd;
+  width: 20px;
+  border: 1px solid #ccc;
+}
+
+.timeline-event {
+  background-color: #cfc;
+}
+
+.timeline-event.is-focused {
+  background-color: #ccf;
 }
 
 .runlog-item.is-focused,
-.timeline-row.is-focused,
 li.is-focused {
   background-color: #cfc;
   border-color: #aca;
-}
-
-.timeline-row.is-active {
-  background-color: #ccf;
 }
 
 .variables {

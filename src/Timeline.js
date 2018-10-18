@@ -2,13 +2,28 @@ import React, { Component } from 'react';
 
 import isMatchingLocation from './matchingLocation';
 
+const TIMELINE_COLUMN = 20;
+const TIMELINE_ROW = 15;
+
 class Timeline extends Component {
   render() {
-    const dots = this.makeDotTimeline();
+    const dots = this.makeDotTimeline(
+      this.props.code,
+      this.props.loggedEvents,
+      this.props.focusedLocation
+    );
+
+    const maxLine = this.props.code.split('\n').length;
+
     return <div className="timeline"
       onMouseOut={this.props.onHoverEnd.bind(this)}
     >
-      {dots}
+      <div className="timeline-scrollContainer" style={{
+        width: this.props.loggedEvents.length * TIMELINE_COLUMN + 'px',
+        height: maxLine * TIMELINE_ROW + 'px',
+      }}>
+        {dots}
+      </div>
     </div>;
   }
 
@@ -18,8 +33,8 @@ class Timeline extends Component {
     }
   }
 
-  makeDotTimeline() {
-    let maxLine = this.props.code.split('\n').length;
+  makeDotTimeline(code, loggedEvents, focusedLocation) {
+    let maxLine = code.split('\n').length;
 
     const output = [];
     const columns = [];
@@ -34,21 +49,40 @@ class Timeline extends Component {
     }
     output.push(<div className="timeline-lineNumbers" key="lineNumbers">{lineNumbers}</div>);
 
-    this.props.loggedEvents.forEach((event, index) => {
-      const rows = [];
-      for (let i = 0; i < maxLine; i++) {
-        let active = i === event.loc.start.line - 1;
-        let focused = isMatchingLocation(event.loc, this.props.focusedLocation);
-        rows.push(<div
-          className={`timeline-row ${active && 'is-active'} ${focused && 'is-focused'}`}
-          key={`step-${index}-row-${i}`}
-          onMouseOver={this.sendHoverEvents.bind(this, index)}
-        />);
+    const eventIndex = [];
+    for (let i = 1; i <= loggedEvents.length; i++) {
+      let shouldAddIndex = true;
+      if (i >= 10) {
+        shouldAddIndex = i % 2 === 0;
+      }
+      if (i >= 100) {
+        shouldAddIndex = i % 5 === 0;
       }
 
-      output.push(<div className="timeline-column" key={`step-${index}`}>
-        {rows}
-      </div>);
+      if (shouldAddIndex) {
+        eventIndex.push(<div className="timeline-eventNumber"
+          key={`event-${i}`}
+          style={{
+            left: i * TIMELINE_COLUMN + 'px',
+          }}
+        >
+          {i}
+        </div>);
+      }
+    }
+    output.push(<div className="timeline-eventNumbers" key="eventNumbers">{eventIndex}</div>);
+
+    loggedEvents.forEach((event, index) => {
+      let focused = isMatchingLocation(event.loc, focusedLocation);
+      output.push(<div
+        className={`timeline-event ${focused && 'is-focused'}`}
+        key={index}
+        style={{
+          top: (event.loc.start.line - 1) * TIMELINE_ROW + 'px',
+          left: (index + 1) * TIMELINE_COLUMN + 'px',
+        }}
+        onMouseOver={this.sendHoverEvents.bind(this, index)}
+      ></div>);
     });
 
     return output;
