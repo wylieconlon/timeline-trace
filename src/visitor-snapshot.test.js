@@ -117,4 +117,20 @@ if (_if) {} else if (_if2) {} else {
 }
 `);
   });
+
+  it("Adds tracking to do while", function() {
+    const result = visitor(`
+do {
+} while (a < 5);
+    `);
+    expect(result).toMatchInlineSnapshot(`
+Object {
+  "code": "do {
+  __tracker(\\"block\\", \\"_uid\\", \\"2,3,3,1\\")
+} while (a < 5);",
+  "map": null,
+  "rawMappings": null,
+}
+`);
+  });
 });

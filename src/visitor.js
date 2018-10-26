@@ -92,7 +92,13 @@ function visitor(code) {
     },
 
     VariableDeclaration(path) {
-      if (types.isForStatement(path.parentPath)) {
+      if (
+        types.isForStatement(path.parentPath) ||
+        types.isForInStatement(path.parentPath) ||
+        types.isForOfStatement(path.parentPath) ||
+        types.isWhileStatement(path.parentPath) ||
+        types.isDoWhileStatement(path.parentPath)
+      ) {
         return;
       }
 
