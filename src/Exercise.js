@@ -82,7 +82,7 @@ class Exercise extends Component {
   }
 
   componentWillUnmount() {
-    window.removeEventListener(this.iframeListener);
+    window.removeEventListener('message', this.iframeListener);
   }
 
   addToTimeline(type, name, loc, ...args) {
