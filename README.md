@@ -16,11 +16,10 @@ npm run build
 npm run watch
 ```
 
-This project does not provide a web server, but you could use one
-such as:
+This project uses a node server to run:
 
 ```
-python -m SimpleHTTPServer
+npm run start
 ```
 
 # Testing
