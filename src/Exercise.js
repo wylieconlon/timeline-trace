@@ -24,6 +24,8 @@ class Exercise extends Component {
     return (<div>
       <Link to="/">Home</Link>
 
+      <button onClick={this.toggleShowingSource.bind(this)}>View source</button>
+
       {this.props.children}
 
       <div className="editor-area">
