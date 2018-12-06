@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import Timeline from './Timeline';
 import Editor from './Editor';
 import Iframe from './Iframe';
@@ -20,6 +22,10 @@ class Exercise extends Component {
 
   render() {
     return (<div>
+      <Link to="/">Home</Link>
+
+      {this.props.children}
+
       <div className="editor-area">
         <div className="row">
           <Editor code={this.props.code}

@@ -5,18 +5,26 @@ import {
 } from 'react-router-dom';
 
 import Home from './Home';
-import Exercise1 from './exercises/Exercise1';
-import Exercise2 from './exercises/Exercise2';
-import Exercise3 from './exercises/Exercise3';
+import Exercise from './Exercise';
+import ExerciseVariables from './exercises/ExerciseVariables';
+import ExerciseVariableCounter from './exercises/ExerciseVariableCounter';
+import ExerciseClickHandling from './exercises/ExerciseClickHandling';
+import ExerciseTyping from './exercises/ExerciseTyping';
+import ExerciseFib from './exercises/ExerciseFib';
+import ExerciseFizzbuzz from './exercises/ExerciseFizzbuzz';
 
 class App extends Component {
   render() {
     return (
       <Router>
         <div className="App">
-          <Route path="/exercise/1" component={Exercise1} />
-          <Route path="/exercise/2" component={Exercise2} />
-          <Route path="/exercise/3" component={Exercise3} />
+          <Route path="/exercise/variables" component={ExerciseVariables} />
+          <Route path="/exercise/variablecounter" component={ExerciseVariableCounter} />
+          <Route path="/exercise/clickhandling" component={ExerciseClickHandling} />
+          <Route path="/exercise/typing" component={ExerciseTyping} />
+          <Route path="/exercise/fib" component={ExerciseFib} />
+          <Route path="/exercise/fizzbuzz" component={ExerciseFizzbuzz} />
+          <Route path="/playground" component={Exercise} />
           <Route path="/" exact component={Home} />
         </div>
       </Router>

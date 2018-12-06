@@ -73,8 +73,7 @@ button { font-size: 15px; }
 }
 
 .actual-output,
-.generated,
-.timeline {
+.generated {
   white-space: pre;
 }
 
@@ -90,7 +89,6 @@ h4 {
   margin: 0;
 }
 
-.timeline,
 .runlog {
   font-family: monospace;
 }
@@ -110,41 +108,12 @@ h4 {
 .timeline {
   position: relative;
   border: 1px solid #d0d0d0;
-  padding: 4px 0;
   overflow: auto;
 }
 
-.timeline-scrollContainer {
-  position: relative;
-}
-
-.timeline-eventNumbers {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-}
-
-.timeline-eventNumber {
-  position: absolute;
-  width: 20px;
-}
-
-
-.timeline-event {
-  position: absolute;
-  height: 15px;
-  width: 20px;
-  border: 1px solid #ccc;
-}
-
-.timeline-event {
-  background-color: #cfc;
-}
-
-.timeline-event.is-focused {
-  background-color: #ccf;
+.timeline-tooltip {
+  max-width: 100px;
+  word-break: break-all;
 }
 
 .runlog-item.is-focused,
