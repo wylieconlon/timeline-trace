@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import isMatchingLocation from './matchingLocation';
+import isMatchingLocation from './util/matchingLocation';
 
 const TIMELINE_COLUMN = 20;
 const TIMELINE_ROW = 15;

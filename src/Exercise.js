@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Timeline from './Timeline';
 import Editor from './Editor';
-import Iframe from './Iframe-component';
+import Iframe from './Iframe';
 import RunLog from './RunLog';
 
-import visitor from './visitor';
+import visitor from './core/visitor';
 
 class Exercise extends Component {
   constructor(props) {
@@ -130,11 +130,13 @@ class Exercise extends Component {
       console.error(e);
     }
 
-    this.setState({
-      code: newCode,
-      generatedCode: generated,
-      loggedEvents: [],
-    });
+    if (this.state.generatedCode !== generated) {
+      this.setState({
+        code: newCode,
+        generatedCode: generated,
+        loggedEvents: [],
+      });
+    }
   }
 }
 

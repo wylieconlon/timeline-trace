@@ -14,7 +14,7 @@ class Iframe extends Component {
     return `<!DOCTYPE html>
     <html>
       <head>
-        <script src="/dist/iframe.js"></script>
+        <script src="/dist/runtime.js"></script>
       </head>
       <body>
         <script>${this.props.code}</script>

@@ -5,8 +5,8 @@ import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import debounce from 'lodash-es/debounce';
 
-import matchingLocation from './matchingLocation';
-import getChangesOverTime from './getChangesOverTime';
+import matchingLocation from './util/matchingLocation';
+import getChangesOverTime from './util/getChangesOverTime';
 
 class Editor extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import isMatchingLocation from './matchingLocation';
-import getChangesOverTime from './getChangesOverTime';
+import isMatchingLocation from './util/matchingLocation';
+import getChangesOverTime from './util/getChangesOverTime';
 
 class RunLog extends Component {
   render() {
