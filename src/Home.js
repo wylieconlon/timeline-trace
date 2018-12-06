@@ -15,6 +15,7 @@ class Home extends Component {
 
         <h3>User Interaction</h3>
         <ul>
+          <li><Link to="/exercise/typing">Key events</Link></li>
           <li><Link to="/exercise/3">Click handling</Link></li>
         </ul>
 

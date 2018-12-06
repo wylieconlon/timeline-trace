@@ -13,7 +13,7 @@ class RunLog extends Component {
         <div className="runlog-variables">
           {changes.map(({ name, values }) => {
             const isNumeric = values.every((v) => v.value === 'undefined' || !isNaN(parseInt(v.value)));
-            if (isNumeric) {
+            if (isNumeric && values.length > 1) {
               return <div key={`changes-${name}`}>
                 <div className="runlog-variableName">{name}</div>
                 <Numeric data={values} />
