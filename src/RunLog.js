@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import getTextForEvent from './util/getTextForEvent';
 import isMatchingLocation from './util/matchingLocation';
 import getChangesOverTime from './util/getChangesOverTime';
 
@@ -33,7 +34,7 @@ class RunLog extends Component {
 
         <div className='runlog-lines'>
           {this.props.loggedEvents.map((event, index) => {
-            const text = this.getTextForEvent(event, index);
+            const text = getTextForEvent(event, index);
             const isFocused = isMatchingLocation(
               event.loc,
               this.props.focusedLocation
@@ -47,22 +48,6 @@ class RunLog extends Component {
         </div>
       </div>
     );
-  }
-
-  getTextForEvent({ type, name, loc, args }, index) {
-    if (type === 'assignment') {
-      return `Step ${index + 1}: Assign ${name} to "${args[0]}" on line ${loc.start.line}`;
-    } else if (type === 'fncall') {
-      return `Step ${index + 1}: Call ${name} on line ${loc.start.line} with arguments: ${args.join(', ')}`;
-    } else if (type === 'block') {
-      return `Step ${index + 1}: Run branch on line ${loc.start.line}`;
-    } else if (type === 'condition' && name === 'else condition') {
-      return `Step ${index + 1}: No other conditions met, else branch on line ${loc.start.line} was run`;
-    } else if (type === 'condition') {
-      return `Step ${index + 1}: Condition ${name} on line ${loc.start.line} had result: ${args[0]}`;
-    } else {
-      return `Step ${index + 1}`;
-    }
   }
 
   handleMouseOver(index) {

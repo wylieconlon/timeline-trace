@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import Timeline from './Timeline';
 import Editor from './Editor';
 import Iframe from './Iframe';
@@ -20,6 +22,10 @@ class Exercise extends Component {
 
   render() {
     return (<div>
+      <Link to="/">Home</Link>
+
+      {this.props.children}
+
       <div className="editor-area">
         <div className="row">
           <Editor code={this.props.code}
@@ -39,14 +45,14 @@ class Exercise extends Component {
             <h4>Output:</h4>
             <Iframe className="iframe" code={this.state.generatedCode} />
           </div>
-          <div className="variables">
+          {/* <div className="variables">
             <h4>Program run log:</h4>
             <RunLog loggedEvents={this.state.loggedEvents}
               focusedLocation={this.state.hoveredCodePosition}
               onHover={this.handleHoverAtIndex.bind(this)}
               onHoverEnd={this.handleHoverEnd.bind(this)}
             />
-          </div>
+          </div> */}
         </div>
       </div>
 

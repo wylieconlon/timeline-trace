@@ -29,7 +29,7 @@ class Editor extends Component {
     this._editor = CodeMirror(this.editorContainer.current, {
       mode: 'javascript',
       theme: 'monokai',
-      value: this.props.code,
+      value: this.props.code || '',
       lineNumbers: true,
     });
 
@@ -38,6 +38,10 @@ class Editor extends Component {
     this._editor.on('change', debounce(() => {
       this.props.onCodeChange(this._editor.getValue());
     }), 500);
+  }
+
+  componentWillUnmount() {
+    this._editor.off('change');
   }
 
   _createMarker(loc) {

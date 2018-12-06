@@ -1,30 +1,42 @@
 import React, { Component } from 'react';
+import { Cell, ResponsiveContainer, Scatter, ScatterChart, Tooltip, XAxis, YAxis } from 'recharts';
 
-import isMatchingLocation from './util/matchingLocation';
-
-const TIMELINE_COLUMN = 20;
-const TIMELINE_ROW = 15;
+import getTextForEvent from './util/getTextForEvent';
 
 class Timeline extends Component {
   render() {
-    const dots = this.makeDotTimeline(
-      this.props.code,
-      this.props.loggedEvents,
-      this.props.focusedLocation
-    );
+    const data = this.getScatterPlotData(this.props.loggedEvents);
 
-    const maxLine = this.props.code.split('\n').length;
-
-    return <div className="timeline"
-      onMouseOut={this.props.onHoverEnd.bind(this)}
-    >
-      <div className="timeline-scrollContainer" style={{
-        width: this.props.loggedEvents.length * TIMELINE_COLUMN + 'px',
-        height: maxLine * TIMELINE_ROW + 'px',
-      }}>
-        {dots}
+    return (
+      <div className="timeline">
+        <ResponsiveContainer>
+          <ScatterChart>
+            <XAxis dataKey="step" label={{ value: "Step", position: 'insideBottom' }} />
+            <YAxis dataKey="line" label={{ value: "Line", angle: -90, position: 'center' }} reversed={true} />
+            <Tooltip cursor={{ strokeDasharray: '3 3' }} content={this.getTooltip.bind(this)} />
+            <Scatter data={data} fill="#8884d8">
+              {
+                data.map((entry, index) => {
+                  return <Cell key={`cell-${index}`}
+                    onMouseOver={this.sendHoverEvents.bind(this, index)}
+                  />
+                })
+              }
+            </Scatter>
+          </ScatterChart>
+        </ResponsiveContainer>
       </div>
-    </div>;
+    );
+  }
+
+  getTooltip({ payload }) {
+    if (payload.length === 0) {
+      return <span></span>;
+    } else {
+      return <span className="timeline-tooltip">
+        {getTextForEvent(payload[0].payload.event, payload[0].payload.step)}
+       </span>;
+    }
   }
 
   sendHoverEvents(index) {
@@ -33,59 +45,14 @@ class Timeline extends Component {
     }
   }
 
-  makeDotTimeline(code, loggedEvents, focusedLocation) {
-    let maxLine = code.split('\n').length;
-
-    const output = [];
-    const columns = [];
-
-    const lineNumbers = [];
-    for (let i = 0; i < maxLine; i++) {
-      lineNumbers.push(<div className="timeline-row"
-        key={`line-${i}`}
-      >
-        {i+1}
-      </div>);
-    }
-    output.push(<div className="timeline-lineNumbers" key="lineNumbers">{lineNumbers}</div>);
-
-    const eventIndex = [];
-    for (let i = 1; i <= loggedEvents.length; i++) {
-      let shouldAddIndex = true;
-      if (i >= 10) {
-        shouldAddIndex = i % 2 === 0;
-      }
-      if (i >= 100) {
-        shouldAddIndex = i % 5 === 0;
-      }
-
-      if (shouldAddIndex) {
-        eventIndex.push(<div className="timeline-eventNumber"
-          key={`event-${i}`}
-          style={{
-            left: i * TIMELINE_COLUMN + 'px',
-          }}
-        >
-          {i}
-        </div>);
-      }
-    }
-    output.push(<div className="timeline-eventNumbers" key="eventNumbers">{eventIndex}</div>);
-
-    loggedEvents.forEach((event, index) => {
-      let focused = isMatchingLocation(event.loc, focusedLocation);
-      output.push(<div
-        className={`timeline-event ${focused && 'is-focused'}`}
-        key={index}
-        style={{
-          top: (event.loc.start.line - 1) * TIMELINE_ROW + 'px',
-          left: (index + 1) * TIMELINE_COLUMN + 'px',
-        }}
-        onMouseOver={this.sendHoverEvents.bind(this, index)}
-      ></div>);
+  getScatterPlotData(loggedEvents) {
+    return loggedEvents.map((event, index) => {
+      return {
+        line: event.loc.start.line - 1,
+        step: index + 1,
+        event: event
+      };
     });
-
-    return output;
   }
 }
 

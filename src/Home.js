@@ -17,6 +17,18 @@ class Home extends Component {
         <ul>
           <li><Link to="/exercise/3">Click handling</Link></li>
         </ul>
+
+        <h3>Algorithms</h3>
+        <ul>
+          <li><Link to="/exercise/fizzbuzz">Fizzbuzz</Link></li>
+          <li><Link to="/exercise/fib">Fibonacci</Link></li>
+        </ul>
+
+        <h3>Playground</h3>
+        <p>Try writing your own code</p>
+        <ul>
+          <li><Link to="/playground">Playground</Link></li>
+        </ul>
       </div>
     </div>;
   }

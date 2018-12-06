@@ -6,9 +6,9 @@ import variableLoops from '../samples/variableLoops';
 class Exercise2 extends Component {
   render() {
     return <div>
-      <h1>Using a variable as a counter</h1>
-
-      <Exercise code={variableLoops} />
+      <Exercise code={variableLoops}>
+        <h1>Using a variable as a counter</h1>
+      </Exercise>
     </div>;
   }
 }
