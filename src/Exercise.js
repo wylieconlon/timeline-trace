@@ -45,14 +45,14 @@ class Exercise extends Component {
             <h4>Output:</h4>
             <Iframe className="iframe" code={this.state.generatedCode} />
           </div>
-          {/* <div className="variables">
+          <div className="variables">
             <h4>Program run log:</h4>
             <RunLog loggedEvents={this.state.loggedEvents}
               focusedLocation={this.state.hoveredCodePosition}
               onHover={this.handleHoverAtIndex.bind(this)}
               onHoverEnd={this.handleHoverEnd.bind(this)}
             />
-          </div> */}
+          </div>
         </div>
       </div>
 

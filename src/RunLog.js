@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import Numeric from './visualizers/Numeric';
 import getTextForEvent from './util/getTextForEvent';
 import isMatchingLocation from './util/matchingLocation';
 import getChangesOverTime from './util/getChangesOverTime';
@@ -11,24 +12,32 @@ class RunLog extends Component {
       <div className="runlog" onMouseOut={this.handleMouseOut.bind(this)}>
         <div className="runlog-variables">
           {changes.map(({ name, values }) => {
-            return (<div className="runlog-variable" key={`changes-${name}`}>
-              <div className="runlog-variableName">{name}</div>
-              <ul>
-                {values.map(({ step, value, loc }) => {
-                  let isFocused = isMatchingLocation(
-                    loc,
-                    this.props.focusedLocation
-                  );
-                  return (<li
-                    className={`${isFocused ? 'is-focused' : ''}`}
-                    key={`step-${step}`}
-                    onMouseOver={this.handleMouseOver.bind(this, step - 1)}
-                  >
-                    Step {step}: {value}
-                  </li>);
-                })}
-              </ul>
-            </div>);
+            const isNumeric = values.every((v) => v.value === 'undefined' || !isNaN(parseInt(v.value)));
+            if (isNumeric) {
+              return <div key={`changes-${name}`}>
+                <div className="runlog-variableName">{name}</div>
+                <Numeric data={values} />
+              </div>
+            } else {
+              return (<div className="runlog-variable" key={`changes-${name}`}>
+                <div className="runlog-variableName">{name}</div>
+                <ul>
+                  {values.map(({ step, value, loc }) => {
+                    let isFocused = isMatchingLocation(
+                      loc,
+                      this.props.focusedLocation
+                    );
+                    return (<li
+                      className={`${isFocused ? 'is-focused' : ''}`}
+                      key={`step-${step}`}
+                      onMouseOver={this.handleMouseOver.bind(this, step - 1)}
+                    >
+                      Step {step}: {value}
+                    </li>);
+                  })}
+                </ul>
+              </div>);
+            }
           })}
         </div>
 
