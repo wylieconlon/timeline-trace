@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "watch": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack",
+    "now-build": "npm run build"
   },
   "author": "Wylie Conlon <wylieconlon@gmail.com>",
   "license": "MIT",
