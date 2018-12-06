@@ -10,11 +10,12 @@ class Home extends Component {
         <h3>Variables</h3>
         <ul>
           <li><Link to="/exercise/1">What is a variable?</Link></li>
+          <li><Link to="/exercise/2">Using a variable as a counter</Link></li>
         </ul>
 
         <h3>User Interaction</h3>
         <ul>
-          <li><Link to="/exercise/2">Click handling</Link></li>
+          <li><Link to="/exercise/3">Click handling</Link></li>
         </ul>
       </div>
     </div>;

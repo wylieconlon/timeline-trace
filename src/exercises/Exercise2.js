@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
 import Exercise from '../Exercise';
-import clickhandling from '../samples/clickhandling';
+import variableLoops from '../samples/variableLoops';
 
 class Exercise2 extends Component {
   render() {
     return <div>
-      <Exercise code={clickhandling} />
+      <h1>Using a variable as a counter</h1>
+
+      <Exercise code={variableLoops} />
     </div>;
   }
 }
