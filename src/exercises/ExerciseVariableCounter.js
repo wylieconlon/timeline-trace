@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Exercise from '../Exercise';
 import variableLoops from '../samples/variableLoops';
 
-class Exercise2 extends Component {
+class ExerciseVariableCounter extends Component {
   render() {
     return <div>
       <Exercise code={variableLoops}>
@@ -13,4 +13,4 @@ class Exercise2 extends Component {
   }
 }
 
-export default Exercise2;
+export default ExerciseVariableCounter;

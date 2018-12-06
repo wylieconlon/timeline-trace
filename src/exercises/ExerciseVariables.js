@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Exercise from '../Exercise';
 import variableAssign from '../samples/variableAssign';
 
-class Exercise1 extends Component {
+class ExerciseVariables extends Component {
   render() {
     return <div>
       <Exercise code={variableAssign}>
@@ -23,4 +23,4 @@ class Exercise1 extends Component {
   }
 }
 
-export default Exercise1;
+export default ExerciseVariables;

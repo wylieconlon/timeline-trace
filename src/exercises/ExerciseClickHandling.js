@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Exercise from '../Exercise';
 import clickhandling from '../samples/clickhandling';
 
-class Exercise3 extends Component {
+class ExerciseClickHandling extends Component {
   render() {
     return <div>
       <Exercise code={clickhandling}>
@@ -19,4 +19,4 @@ class Exercise3 extends Component {
   }
 }
 
-export default Exercise3;
+export default ExerciseClickHandling;
