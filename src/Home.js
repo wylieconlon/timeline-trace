@@ -4,7 +4,17 @@ import { Link } from 'react-router-dom';
 class Home extends Component {
   render() {
     return <div>
-      <p>Table of Contents</p>
+
+      <div>
+        <h1>Timeline Trace</h1>
+
+        <p>
+          These exercises are an exploration intended to help Javascript developers
+          understand their code in a more visual way. Some of these exercises are
+          especially useful for beginners, while others are meant for more advanced
+          use.
+        </p>
+      </div>
 
       <div>
         <h3>Variables</h3>

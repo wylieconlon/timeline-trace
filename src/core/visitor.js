@@ -194,7 +194,11 @@ function visitor(code) {
 
   traverse(originalAst, visit, null);
 
-  return generate(originalAst, code);
+  let generated = generate(originalAst, code);
+
+  generated = `try { ${generated.code} } catch (e) { console.error(e); }`;
+
+  return generated;
 }
 
 export default visitor;

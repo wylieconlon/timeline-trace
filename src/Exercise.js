@@ -29,32 +29,30 @@ class Exercise extends Component {
       {this.props.children}
 
       <div className="editor-area">
-        <div className="row">
-          <Editor code={this.props.code}
-            onCodeChange={this.onCodeChange.bind(this)}
+        <Editor code={this.props.code}
+          onCodeChange={this.onCodeChange.bind(this)}
+          focusedLocation={this.state.hoveredCodePosition}
+          onHover={this.handleHoverAtIndex.bind(this)}
+          onHoverEnd={this.handleHoverEnd.bind(this)}
+          loggedEvents={this.state.loggedEvents}
+        />
+        <Timeline loggedEvents={this.state.loggedEvents}
+          focusedLocation={this.state.hoveredCodePosition}
+          onHover={this.handleHoverAtIndex.bind(this)}
+          onHoverEnd={this.handleHoverEnd.bind(this)}
+          code={this.props.code}
+        />
+        <div className="output">
+          <h4>Output:</h4>
+          <Iframe className="iframe" code={this.state.generatedCode} />
+        </div>
+        <div className="variables">
+          <h4>Program run log:</h4>
+          <RunLog loggedEvents={this.state.loggedEvents}
             focusedLocation={this.state.hoveredCodePosition}
             onHover={this.handleHoverAtIndex.bind(this)}
             onHoverEnd={this.handleHoverEnd.bind(this)}
-            loggedEvents={this.state.loggedEvents}
           />
-          <Timeline loggedEvents={this.state.loggedEvents}
-            focusedLocation={this.state.hoveredCodePosition}
-            onHover={this.handleHoverAtIndex.bind(this)}
-            onHoverEnd={this.handleHoverEnd.bind(this)}
-            code={this.props.code}
-          />
-          <div className="output">
-            <h4>Output:</h4>
-            <Iframe className="iframe" code={this.state.generatedCode} />
-          </div>
-          <div className="variables">
-            <h4>Program run log:</h4>
-            <RunLog loggedEvents={this.state.loggedEvents}
-              focusedLocation={this.state.hoveredCodePosition}
-              onHover={this.handleHoverAtIndex.bind(this)}
-              onHoverEnd={this.handleHoverEnd.bind(this)}
-            />
-          </div>
         </div>
       </div>
 
@@ -132,10 +130,9 @@ class Exercise extends Component {
   onCodeChange(newCode) {
     let generated = '';
     try {
-      generated = visitor(newCode).code;
+      generated = visitor(newCode);
     } catch (e) {
-      // Show an error to the user?
-      console.error(e);
+      // Ignore the syntax error for now
     }
 
     if (this.state.generatedCode !== generated) {

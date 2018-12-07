@@ -8,7 +8,7 @@ describe("Structure of tracking calls", function() {
   });
 
   it("Tracks that a variable is declared", function() {
-    const code = visitor(`var x = 5;`).code;
+    const code = visitor(`var x = 5;`);
 
     eval(code);
 
@@ -25,7 +25,7 @@ if (x === 1) {
 } else if (x === 2) {
 } else if (x === 5) {
 } else {}
-    `).code;
+    `);
 
     eval(code);
 
