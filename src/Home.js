@@ -14,6 +14,34 @@ class Home extends Component {
           especially useful for beginners, while others are meant for more advanced
           use.
         </p>
+
+        <p>
+          In this project, the idea of a "step" in a program is used to represent
+          an order of operations. A step is not the same as a line of code.
+          For example, in the following program there are three steps that are tracked:
+        </p>
+
+        <code><pre>{`
+function doSomething(input) {
+  return input.length;
+}
+var name = document.querySelector('input').value;
+if (name !== 'alex') {
+  console.log(doSomething(name));
+}
+        `}</pre></code>
+
+        <ol>
+          <li>Name is assigned to the value of a user input</li>
+          <li>A condition is checked</li>
+          <li>The function <code>doSomething</code> is called with an argument</li>
+        </ol>
+
+        <p>
+          You may notice that the function defined inside the code is tracked, but
+          functions like <code>console.log</code> and <code>document.querySelector</code>
+          &nbsp; are not tracked.
+        </p>
       </div>
 
       <div>
