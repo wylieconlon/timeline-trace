@@ -42,7 +42,9 @@ class RunLog extends Component {
         </div>
 
         <div className='runlog-lines'>
-          {this.props.loggedEvents.map((event, index) => {
+          {this.props.loggedEvents.filter(({ type }) => {
+            return type !== 'assignment' && type !== 'fncall';
+          }).map((event, index) => {
             const text = getTextForEvent(event, index);
             const isFocused = isMatchingLocation(
               event.loc,
