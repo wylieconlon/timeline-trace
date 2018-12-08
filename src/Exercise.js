@@ -21,6 +21,8 @@ class Exercise extends Component {
   }
 
   render() {
+    const iframeStyle = this.props.hideOutput ? {display: 'none'} : {};
+
     return (<div>
       <Link to="/">Home</Link>
 
@@ -42,7 +44,7 @@ class Exercise extends Component {
           onHoverEnd={this.handleHoverEnd.bind(this)}
           code={this.props.code}
         />
-        <div className="output">
+        <div className="output" style={iframeStyle}>
           <h4>Output:</h4>
           <Iframe className="iframe" code={this.state.generatedCode} />
         </div>
