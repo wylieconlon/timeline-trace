@@ -50,7 +50,7 @@ class Editor extends Component {
 
     this._editor.on('change', debounce(() => {
       this.props.onCodeChange(this._editor.getValue());
-    }), 500);
+    }, 500));
 
     this.editorContainer.current.addEventListener('mouseover', this._handleMouseOver.bind(this));
   }
