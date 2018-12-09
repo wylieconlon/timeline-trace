@@ -1,11 +1,14 @@
 export default function getChangesOverTime(eventLog) {
   const changes = {};
-  const keys = [];
+  const meta = [];
   eventLog.forEach(({ type, name, loc, args }, index) => {
     if (type === 'assignment') {
       if (!changes[name]) {
         changes[name] = [];
-        keys.push(name);
+        meta.push({
+          name,
+          type,
+        });
       }
 
       changes[name].push({
@@ -14,10 +17,15 @@ export default function getChangesOverTime(eventLog) {
         loc
       });
     } else if (type === 'fncall') {
-      const fnName = name === 'Anonymous Function' ? name + ' on line ' + loc.start.line : name;
+      let fnName = name === 'Anonymous Function' ? name + ' on line ' + loc.start.line : name;
+      fnName = 'Arguments to ' + fnName;
+
       if (!changes[fnName]) {
         changes[fnName] = [];
-        keys.push(fnName);
+        meta.push({
+          name: fnName,
+          type,
+        });
       }
 
       changes[fnName].push({
@@ -25,13 +33,43 @@ export default function getChangesOverTime(eventLog) {
         step: index + 1,
         loc
       });
+    } else if (type === 'condition' && name !== 'else condition') {
+      if (!changes[name]) {
+        changes[name] = [];
+        meta.push({
+          name,
+          type,
+        });
+      }
+
+      changes[name].push({
+        value: args[0],
+        step: index + 1,
+        loc
+      });
+    } else if (type === 'return') {
+      const returnName = 'Returned on line ' + loc.start.line;
+      if (!changes[returnName]) {
+        changes[returnName] = [];
+        meta.push({
+          name: returnName,
+          type,
+        });
+      }
+
+      changes[returnName].push({
+        value: args[0],
+        step: index + 1,
+        loc
+      });
     }
   });
 
-  return keys.map((key) => {
+  return meta.map(({ name, type }) => {
     return {
-      name: key,
-      values: changes[key]
+      name,
+      values: changes[name],
+      type,
     };
   });
 }

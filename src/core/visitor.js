@@ -190,6 +190,31 @@ function visitor(code) {
 
       path.unshiftContainer('body', trackArguments);
     },
+
+    ReturnStatement(path) {
+      const storeReturnValue = path.scope.generateUidIdentifier('retValue');
+      const assignReturnValue = types.variableDeclaration(
+        'let',
+        [types.variableDeclarator(
+          storeReturnValue,
+          path.node.argument
+        )]
+      );
+
+      const trackSelf = types.expressionStatement(types.callExpression(
+        types.identifier('__tracker'),
+        [
+          types.stringLiteral('return'),
+          types.stringLiteral(path.get('argument').toString()),
+          types.stringLiteral(shrinkLocation(path.node.loc)),
+          storeReturnValue
+        ]
+      ));
+
+      path.insertBefore(assignReturnValue);
+      path.insertBefore(trackSelf);
+      path.get('argument').replaceWith(storeReturnValue);
+    }
   };
 
   traverse(originalAst, visit, null);

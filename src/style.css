@@ -6,7 +6,7 @@
 
 html, body {
   margin: 0;
-  body: 0;
+  border: 0;
   padding: 0;
 }
 
@@ -30,6 +30,24 @@ body {
   border-radius: 2px;
   margin-left: 5px;
   padding: 0 5px;
+}
+
+.CodeMirror .tracked {
+  border-bottom: 1px solid #555;
+}
+.CodeMirror .tracked:hover {
+  background-color: #555;
+}
+
+.editor-tooltip {
+  display: none;
+  position: fixed;
+  max-width: 200px;
+  max-height: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  overflow: auto;
+  z-index: 100;
 }
 
 .buttons {
@@ -78,21 +96,21 @@ button { font-size: 15px; }
   height: 90vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 40% 60%;
   grid-auto-flow: row;
   width: 100%;
 }
 
+.editor-container,
 .editor {
+  display: flex;
+  width: 100%;
+  height: 100%;
   overflow: auto;
+  flex-grow: 1;
 }
 
 h4 {
   margin: 0;
-}
-
-.runlog {
-  font-family: monospace;
 }
 
 .buttons {
@@ -118,32 +136,12 @@ h4 {
   word-break: break-all;
 }
 
-.runlog-item {
-  margin-bottom: 4px;
-}
-
-.runlog-item.is-focused,
 li.is-focused {
   background-color: #cfc;
   border-color: #aca;
 }
 
-.variables {
-  grid-column-start: span 3;
-  overflow: auto;
-}
-
-.runlog {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr;
-}
-
-.runlog-lines {
-  overflow: auto;
-}
-
-.runlog-variableName {
+.visualizer-variableName {
   font-weight: 600;
   border: 1px solid #ccc;
 }
