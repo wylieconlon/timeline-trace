@@ -11,12 +11,12 @@ class Variable extends Component {
     const isNumeric = values.every((v) => v.value === 'undefined' || !isNaN(parseInt(v.value)));
     if (isNumeric && values.length > 1) {
       return <div key={`changes-${name}`}>
-        <div className="runlog-variableName">{name}</div>
+        <div className="visualizer-variableName">{name}</div>
         <Numeric data={values} />
       </div>
     } else {
-      return (<div className="runlog-variable" key={`changes-${name}`}>
-        <div className="runlog-variableName">{name}</div>
+      return (<div className="visualizer-variable" key={`changes-${name}`}>
+        <div className="visualizer-variableName">{name}</div>
         <ul>
           {values.map(({ step, value, loc }) => {
             let isFocused = isMatchingLocation(

@@ -27,7 +27,7 @@ class Editor extends Component {
 
   render() {
     return (
-      <div>
+      <div className="editor-container">
         <div className="editor" ref={this.editorContainer}></div>
         <div className="editor-tooltip" style={this.state.tooltipStyle}>
           {this.state.variable ? <Variable {...this.state.variable} /> : ''}
