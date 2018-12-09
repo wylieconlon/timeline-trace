@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Timeline from './Timeline';
 import Editor from './Editor';
 import Iframe from './Iframe';
-import RunLog from './RunLog';
 
 import visitor from './core/visitor';
 
@@ -47,13 +46,6 @@ class Exercise extends Component {
         <div className="output" style={iframeStyle}>
           <h4>Output:</h4>
           <Iframe className="iframe" code={this.state.generatedCode} />
-        </div>
-        <div className="variables">
-          <RunLog loggedEvents={this.state.loggedEvents}
-            focusedLocation={this.state.hoveredCodePosition}
-            onHover={this.handleHoverAtIndex.bind(this)}
-            onHoverEnd={this.handleHoverEnd.bind(this)}
-          />
         </div>
       </div>
 

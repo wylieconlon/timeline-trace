@@ -148,10 +148,10 @@ class Editor extends Component {
       const widget = document.createElement('span');
       widget.className = 'bookmark';
 
-      if (type === 'assignment') {
-        widget.innerText = lastValue.value;
-      } else if (type === 'fncall') {
+      if (type === 'fncall') {
         widget.innerText = `Called ${values.length} times`;
+      } else {
+        widget.innerText = lastValue.value;
       }
 
       bookmarks.push(this._editor.setBookmark({
