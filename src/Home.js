@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import CodeMirror from 'codemirror';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/addon/runmode/colorize';
+
+import links from './links';
 
 class Home extends Component {
   render() {
     return <div>
 
       <div>
-        <h1>Timeline Trace</h1>
+        <h1>Exploring Javascript in an interactive way</h1>
 
         <p>
           These exercises are an exploration intended to help Javascript developers
@@ -21,7 +26,7 @@ class Home extends Component {
           For example, in the following program there are three steps that are tracked:
         </p>
 
-        <code><pre>{`
+        <code><pre data-lang="javascript">{`
 function doSomething(input) {
   return input.length;
 }
@@ -45,31 +50,17 @@ if (name !== 'alex') {
       </div>
 
       <div>
-        <h3>Variables</h3>
-        <ul>
-          <li><Link to="/exercise/variables">What is a variable?</Link></li>
-          <li><Link to="/exercise/variablecounter">Using a variable as a counter</Link></li>
-        </ul>
-
-        <h3>User Interaction</h3>
-        <ul>
-          <li><Link to="/exercise/typing">Key events</Link></li>
-          <li><Link to="/exercise/clickhandling">Click handling</Link></li>
-        </ul>
-
-        <h3>Algorithms</h3>
-        <ul>
-          <li><Link to="/exercise/fizzbuzz">Fizzbuzz</Link></li>
-          <li><Link to="/exercise/fib">Fibonacci</Link></li>
-        </ul>
-
-        <h3>Playground</h3>
-        <p>Try writing your own code</p>
-        <ul>
-          <li><Link to="/playground">Playground</Link></li>
-        </ul>
+        {links.map((link) => {
+          return <div key={link.url}>
+            <Link to={link.url}>{link.title}</Link>
+          </div>;
+        })}
       </div>
     </div>;
+  }
+
+  componentDidMount() {
+    CodeMirror.colorize();
   }
 }
 

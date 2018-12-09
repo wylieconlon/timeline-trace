@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 
 import Exercise from '../Exercise';
-import variableAssign from '../samples/variableAssign';
 
 const assignExample = `
-var myVariable;
-myVariable = 10;
+var totalAge;
+
+totalAge = 10;
 `;
 
 class ExerciseVariables extends Component {
   render() {
     return <div>
-      <Exercise code={variableAssign} hideOutput={true}>
+      <Exercise code={assignExample} hideOutput={true}>
         <h1>Using variables to count age</h1>
 
         <p>
@@ -22,15 +22,15 @@ class ExerciseVariables extends Component {
 
         <p>To declare a variable:</p>
 
-        <pre><code>var myVariable;</code></pre>
+        <pre data-lang="javascript"><code>var myVariable;</code></pre>
 
         <p>To assign a variable:</p>
 
-        <pre><code>myVariable = 10;</code></pre>
+        <pre data-lang="javascript"><code>myVariable = 10;</code></pre>
 
         <p>To read from a variable, <strong>write its name</strong>:</p>
 
-        <pre><code>myVariable = myVariable + 50;</code></pre>
+        <pre data-lang="javascript"><code>myVariable = myVariable + 50;</code></pre>
 
         <p>
           This program starts with a variable called <strong>totalAge</strong> which
