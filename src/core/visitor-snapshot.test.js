@@ -101,4 +101,23 @@ do {
 } while (a < 5); } catch (e) { console.error(e); }"
 `);
   });
+
+  it("Adds tracking to return statement", function() {
+    const result = visitor(`
+function myFunc(a) {
+  return a.length;
+}
+    `);
+    expect(result).toMatchInlineSnapshot(`
+"try { function myFunc(a) {
+  __tracker(\\"fncall\\", \\"myFunc\\", \\"2,0,4,1\\", a)
+
+  let _retValue = a.length;
+
+  __tracker(\\"return\\", \\"a.length\\", \\"3,2,3,18\\", _retValue);
+
+  return _retValue;
+} } catch (e) { console.error(e); }"
+`);
+  });
 });

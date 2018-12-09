@@ -37,5 +37,20 @@ if (x === 1) {
     expect(calls).toContainEqual(['condition', 'x === 5', '5,11,5,18', false]);
     expect(calls).toContainEqual(['condition', 'else condition', '6,7,6,9']);
   });
-});
 
+  it("Tracks the return value of functions", function() {
+    const code = visitor(`
+function len(str) {
+  return str.length;
+}
+len('hello');
+    `);
+
+    eval(code);
+
+    const calls = __tracker.mock.calls;
+
+    expect(calls.length).toEqual(2);
+    expect(calls).toContainEqual(['return', 'str.length', '3,2,3,20', 5]);
+  });
+});
