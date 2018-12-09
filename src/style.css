@@ -6,7 +6,7 @@
 
 html, body {
   margin: 0;
-  body: 0;
+  border: 0;
   padding: 0;
 }
 
@@ -17,7 +17,7 @@ body {
 
 .CodeMirror {
   min-width: 100%;
-  height: 100%;
+  height: 200px;
   background-color: #f0f0f0;
 }
 
@@ -30,6 +30,23 @@ body {
   border-radius: 2px;
   margin-left: 5px;
   padding: 0 5px;
+}
+
+.CodeMirror .tracked {
+  border-bottom: 1px solid #555;
+}
+.CodeMirror .tracked:hover {
+  background-color: #555;
+}
+
+.editor-tooltip {
+  display: none;
+  position: fixed;
+  max-width: 200px;
+  max-height: 200px;
+  background: #fff;
+  border: 1px solid #ccc;
+  z-index: 1;
 }
 
 .buttons {

@@ -1,11 +1,14 @@
 export default function getChangesOverTime(eventLog) {
   const changes = {};
-  const keys = [];
+  const meta = [];
   eventLog.forEach(({ type, name, loc, args }, index) => {
     if (type === 'assignment') {
       if (!changes[name]) {
         changes[name] = [];
-        keys.push(name);
+        meta.push({
+          name,
+          type,
+        });
       }
 
       changes[name].push({
@@ -17,7 +20,10 @@ export default function getChangesOverTime(eventLog) {
       const fnName = name === 'Anonymous Function' ? name + ' on line ' + loc.start.line : name;
       if (!changes[fnName]) {
         changes[fnName] = [];
-        keys.push(fnName);
+        meta.push({
+          name: fnName,
+          type,
+        });
       }
 
       changes[fnName].push({
@@ -28,10 +34,11 @@ export default function getChangesOverTime(eventLog) {
     }
   });
 
-  return keys.map((key) => {
+  return meta.map(({ name, type }) => {
     return {
-      name: key,
-      values: changes[key]
+      name,
+      values: changes[name],
+      type,
     };
   });
 }

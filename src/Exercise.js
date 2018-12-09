@@ -49,7 +49,6 @@ class Exercise extends Component {
           <Iframe className="iframe" code={this.state.generatedCode} />
         </div>
         <div className="variables">
-          <h4>Program run log:</h4>
           <RunLog loggedEvents={this.state.loggedEvents}
             focusedLocation={this.state.hoveredCodePosition}
             onHover={this.handleHoverAtIndex.bind(this)}
