@@ -11,7 +11,7 @@ totalAge = 10;
 class ExerciseVariables extends Component {
   render() {
     return <div>
-      <Exercise code={assignExample} hideOutput={true}>
+      <Exercise javascript={assignExample} hideOutput={true}>
         <h1>Using variables to count age</h1>
 
         <p>

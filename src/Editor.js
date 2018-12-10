@@ -200,7 +200,7 @@ class Editor extends Component {
             tooltipStyle: {
               display: 'block',
               left: ev.pageX,
-              top: ev.pageY + 20,
+              top: ev.pageY + this._editor.defaultTextHeight(),
             }
           });
         }

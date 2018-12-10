@@ -11,9 +11,9 @@ import ExerciseFizzbuzz from './exercises/ExerciseFizzbuzz';
 
 export default [
   {
-    url: "/exercise/introduction/3",
-    component: ExerciseBrowserBasics,
-    title: 'Displaying Information in a Web Page',
+    url: "/exercise/introduction",
+    component: ExerciseIntroduction,
+    title: 'What can you do with Javascript?',
   },
   {
     url: "/exercise/introduction/2",
@@ -21,9 +21,9 @@ export default [
     title: 'Javascript Basics',
   },
   {
-    url: "/exercise/introduction",
-    component: ExerciseIntroduction,
-    title: 'What can you do with Javascript?',
+    url: "/exercise/introduction/3",
+    component: ExerciseBrowserBasics,
+    title: 'Displaying Information in a Web Page',
   },
   {
     url: "/exercise/variables",

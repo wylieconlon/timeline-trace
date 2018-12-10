@@ -34,7 +34,7 @@
     "@babel/types": "^7.2.0",
     "codemirror": "^5.42.0",
     "lodash-es": "^4.17.11",
-    "lsp-editor-adapter": "0.0.4",
+    "lsp-editor-adapter": "0.0.5",
     "object-inspect": "^1.6.0",
     "prop-types": "^15.6.2",
     "react": "^16.6.3",

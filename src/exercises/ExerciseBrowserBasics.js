@@ -24,13 +24,32 @@ class ExerciseBrowserBasics extends Component {
       </p>
 
       <p>
+        Some of the most common methods you will use while working with the DOM are:
+      </p>
+
+      <pre data-lang="javascript"><code>{`
+// 1. Select an element
+var body = document.body;
+var myElement = document.querySelector('h1');
+
+// 2. Create an element
+var element = document.createElement('div');
+element.innerText = 'plain text';
+body.appendChild(element);
+
+myElement.innerHTML = 'some html';
+element.addEventListener('click', function(ev) {
+  console.log(ev);
+});`}</code></pre>
+
+      <p>
         In this example, there is an {`<h1>`} tag on the page which says Hello World. To change the
         text of the tag, you need to select it, and modify the Element.
       </p>
 
-      <pre data-lang="javascript"><code>{
-        `document.querySelector('h1').innerText = 'Javascript is cool!';`
-      }</code></pre>
+      <pre data-lang="javascript"><code>{`var el = document.querySelector('h1');
+el.innerText = 'Javascript is cool!';`}</code></pre>
+
     </Exercise>;
   }
 }

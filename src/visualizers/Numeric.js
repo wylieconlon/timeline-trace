@@ -1,7 +1,7 @@
 import React from 'react';
 import { Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
 
-export default function Numeric(props) {
+export default React.memo(function Numeric(props) {
   return <div>
     <LineChart height={100} width={200} data={props.data}>
       <XAxis dataKey="step" />
@@ -11,4 +11,4 @@ export default function Numeric(props) {
     </LineChart>
     {props.data.length > 1 ? `Latest value: ${props.data[props.data.length - 1].value}` : ''}
   </div>;
-}
+});

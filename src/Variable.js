@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import Numeric from './visualizers/Numeric';
 import isMatchingLocation from './util/matchingLocation';
 
-class Variable extends Component {
+class Variable extends PureComponent {
   render() {
     const values = this.props.values;
     const name = this.props.name;

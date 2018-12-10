@@ -40,12 +40,6 @@ class Exercise extends Component {
           onHoverEnd={this.handleHoverEnd.bind(this)}
           loggedEvents={this.state.loggedEvents}
         />
-        <Timeline loggedEvents={this.state.loggedEvents}
-          focusedLocation={this.state.hoveredCodePosition}
-          onHover={this.handleHoverAtIndex.bind(this)}
-          onHoverEnd={this.handleHoverEnd.bind(this)}
-          code={this.props.code}
-        />
         <div className="output" style={iframeStyle}>
           <h4>Your webpage:</h4>
           <Iframe className="iframe" html={this.props.html} javascript={this.state.generatedCode} />
