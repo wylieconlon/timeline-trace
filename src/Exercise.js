@@ -4,7 +4,6 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/addon/runmode/colorize';
 
-import Timeline from './Timeline';
 import Editor from './Editor';
 import Iframe from './Iframe';
 
