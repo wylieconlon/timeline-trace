@@ -53,13 +53,13 @@ class Editor extends Component {
       gutters: ['CodeMirror-lsp'],
     });
 
-    let url = 'ws://localhost:3000/javascript';
+    let url = 'ws://159.65.36.45:8080/javascript';
     this.socket = new WebSocket(url);
     this.connection = new LspWsConnection({
       serverUri: url,
       languageId: 'javascript',
-      rootUri: window.lspOptions.rootPath,
-      documentUri: window.lspOptions.jsPath,
+      rootUri: 'file:///usr/src/app/sources/',
+      documentUri: 'file:///usr/src/app/sources/file.js',
       documentText: () => this._editor.getValue(),
     }).connect(this.socket);
 

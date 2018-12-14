@@ -17,8 +17,8 @@ app.engine('html', (filePath, options, callback) => {
   fs.readFile(filePath, (err, content) => {
     if (err) return callback(err);
     let rendered = content.toString()
-      .replace('#rootPath#', 'file://' + __dirname + '/')
-      .replace('#jsPath#', 'file://' + __dirname + '/server.js');
+      .replace('#rootPath#', 'file:///usr/src/app/sources/')
+      .replace('#jsPath#', 'file:///usr/src/app/sources/file.js');
     return callback(null, rendered)
   });
 });
