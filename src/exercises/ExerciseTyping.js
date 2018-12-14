@@ -12,7 +12,7 @@ window.addEventListener('keydown', function(e) {
 class ExerciseTyping extends Component {
   render() {
     return <div>
-      <Exercise code={typing}>
+      <Exercise javascript={typing}>
         <h1>Visualizing User Input</h1>
 
         <p>

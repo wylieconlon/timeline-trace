@@ -22,7 +22,7 @@ document.body.innerText = fib(10);
 class ExerciseFib extends Component {
   render() {
     return <div>
-      <Exercise code={fibonacci}>
+      <Exercise javascript={fibonacci}>
         <h1>Fibonacci</h1>
 
         <p>

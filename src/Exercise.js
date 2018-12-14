@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import CodeMirror from 'codemirror';
+import 'codemirror/mode/javascript/javascript.js';
+import 'codemirror/addon/runmode/colorize';
 
-import Timeline from './Timeline';
 import Editor from './Editor';
 import Iframe from './Iframe';
 
@@ -30,22 +32,16 @@ class Exercise extends Component {
       {this.props.children}
 
       <div className="editor-area">
-        <Editor code={this.props.code}
+        <Editor code={this.props.javascript}
           onCodeChange={this.onCodeChange.bind(this)}
           focusedLocation={this.state.hoveredCodePosition}
           onHover={this.handleHoverAtIndex.bind(this)}
           onHoverEnd={this.handleHoverEnd.bind(this)}
           loggedEvents={this.state.loggedEvents}
         />
-        <Timeline loggedEvents={this.state.loggedEvents}
-          focusedLocation={this.state.hoveredCodePosition}
-          onHover={this.handleHoverAtIndex.bind(this)}
-          onHoverEnd={this.handleHoverEnd.bind(this)}
-          code={this.props.code}
-        />
         <div className="output" style={iframeStyle}>
-          <h4>Output:</h4>
-          <Iframe className="iframe" code={this.state.generatedCode} />
+          <h4>Your webpage:</h4>
+          <Iframe className="iframe" html={this.props.html} javascript={this.state.generatedCode} />
         </div>
       </div>
 
@@ -78,6 +74,8 @@ class Exercise extends Component {
     }
 
     this.iframeListener = window.addEventListener('message', receiveMessage.bind(window), false);
+
+    CodeMirror.colorize();
   }
 
   componentWillUnmount() {

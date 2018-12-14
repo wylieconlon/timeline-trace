@@ -21,7 +21,7 @@ function visitor(code) {
   // TODO: Insert code at the top of the original source to track ranges of characters
 
   const visit = {
-    'FunctionDeclaration|FunctionExpression': {
+    'FunctionDeclaration|FunctionExpression|ArrowFunctionExpression': {
       exit(path) {
         const functionName = path.node.id ? path.node.id.name : 'Anonymous Function';
 
@@ -221,7 +221,10 @@ function visitor(code) {
 
   let generated = generate(originalAst, code);
 
-  generated = `try { ${generated.code} } catch (e) { console.error(e); }`;
+  generated = `try {
+    ${generated.code}
+} catch (e) { console.error(e); }
+`;
 
   return generated;
 }

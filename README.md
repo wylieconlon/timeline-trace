@@ -3,10 +3,10 @@
 Instruments and visualizes execution of JS code. Supports detailed
 tracking of:
 
-* Values of each variable
-* Function calls
-* Loops
-* Conditions
+* Variable assignment
+* Function calls, arguments, and return values
+* For and while Loops
+* If Conditions
 
 # Setup
 

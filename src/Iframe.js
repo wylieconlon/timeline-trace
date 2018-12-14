@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Iframe extends Component {
+class Iframe extends PureComponent {
   render() {
     const code = this.combineCode();
     return (
@@ -17,7 +17,9 @@ class Iframe extends Component {
         <script src="/dist/runtime.js"></script>
       </head>
       <body>
-        <script>${this.props.code}</script>
+        ${this.props.html || ''}
+
+        <script>${this.props.javascript}</script>
       </body>
     </html>
     `;

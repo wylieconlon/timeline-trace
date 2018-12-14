@@ -6,7 +6,7 @@ import clickhandling from '../samples/clickhandling';
 class ExerciseClickHandling extends Component {
   render() {
     return <div>
-      <Exercise code={clickhandling}>
+      <Exercise javascript={clickhandling}>
         <h1>Asynchronous Event Handling</h1>
 
         <p>

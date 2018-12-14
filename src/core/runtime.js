@@ -8,7 +8,12 @@ window.__tracker = function() {
 
 document.addEventListener('DOMContentLoaded', function() {
   function _addCallTracking(type, name, loc, ...args) {
-    const stringifiedArgs = args.map(inspect);
+    const stringifiedArgs = args.map((arg) => {
+      if (typeof arg === 'object') {
+        return arg.constructor.name;
+      }
+      return arg;
+    }).map(inspect);
 
     const locList = loc.split(',').map((l) => parseInt(l));
     const locObject = {

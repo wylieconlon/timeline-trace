@@ -6,7 +6,7 @@ import fizzbuzz from '../samples/fizzbuzz';
 class ExerciseFizzbuzz extends Component {
   render() {
     return <div>
-      <Exercise code={fizzbuzz}>
+      <Exercise javascript={fizzbuzz}>
         <h1>Fizzbuzz</h1>
       </Exercise>
     </div>;

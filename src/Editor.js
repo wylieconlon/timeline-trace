@@ -3,7 +3,11 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/javascript/javascript.js';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
+import 'codemirror/addon/hint/show-hint.css';
+import 'codemirror/addon/hint/show-hint';
 import debounce from 'lodash-es/debounce';
+import 'lsp-editor-adapter/lib/codemirror-lsp.css';
+import { CodeMirrorAdapter, LspWsConnection } from 'lsp-editor-adapter';
 
 import matchingLocation from './util/matchingLocation';
 import getChangesOverTime from './util/getChangesOverTime';
@@ -16,6 +20,10 @@ class Editor extends Component {
 
     this._editor = null;
     this.editorContainer = React.createRef();
+
+    this.connection = null;
+    this.adapter = null;
+    this.socket = null;
 
     this.state = {
       highlightMarker: null,
@@ -42,7 +50,20 @@ class Editor extends Component {
       theme: 'monokai',
       value: this.props.code || '',
       lineNumbers: true,
+      gutters: ['CodeMirror-lsp'],
     });
+
+    let url = 'ws://159.65.36.45:8080/javascript';
+    this.socket = new WebSocket(url);
+    this.connection = new LspWsConnection({
+      serverUri: url,
+      languageId: 'javascript',
+      rootUri: 'file:///usr/src/app/sources/',
+      documentUri: 'file:///usr/src/app/sources/file.js',
+      documentText: () => this._editor.getValue(),
+    }).connect(this.socket);
+
+    this.adapter = new CodeMirrorAdapter(this.connection, {}, this._editor);
 
     this.props.onCodeChange(this._editor.getValue());
 
@@ -57,6 +78,7 @@ class Editor extends Component {
 
   componentWillUnmount() {
     this._editor.off('change');
+    this.socket.close();
   }
 
   _createMarker(range, options) {
@@ -178,7 +200,7 @@ class Editor extends Component {
             tooltipStyle: {
               display: 'block',
               left: ev.pageX,
-              top: ev.pageY + 20,
+              top: ev.pageY + this._editor.defaultTextHeight(),
             }
           });
         }
