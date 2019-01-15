@@ -53,7 +53,7 @@ class Editor extends Component {
       gutters: ['CodeMirror-lsp'],
     });
 
-    let url = 'ws://159.65.36.45:8080/javascript';
+    let url = 'wss://lsp-server.wylie.su/javascript';
     this.socket = new WebSocket(url);
     this.connection = new LspWsConnection({
       serverUri: url,
