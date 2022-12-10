@@ -19,7 +19,7 @@
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^1.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "jest": "^23.6.0",
     "prettier": "^1.18.0",
     "regenerator-runtime": "^0.12.1",
